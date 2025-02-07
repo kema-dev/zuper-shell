@@ -1,0 +1,18 @@
+version: "3"
+
+env:
+  CFLAGS: -lX11 -lXfixes
+  BIN_DIR: "{{ .HOME }}/.local/bin"
+  BIN_NAME: clipnotify
+
+tasks:
+  default:
+    cmds:
+      - task: build
+  build:
+    cmds:
+      - cc ${CFLAGS} ${LDFLAGS} clipnotify.c -o ${BIN_DIR}/${BIN_NAME} ${CFLAGS}
+      - chmod u+x ${BIN_DIR}/${BIN_NAME}
+  clean:
+    cmds:
+      - rm -f ${BIN_DIR}/${BIN_NAME}

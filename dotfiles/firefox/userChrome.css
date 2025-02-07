@@ -1,0 +1,302 @@
+/* Inspired from https://gist.github.com/hylophile/e72628eff973d6012e9170164db7661e */
+
+/* /* Set variables for sidebar widths and margins */
+/* :root {
+/* 	--sidebery-retracted-width: 30px;
+/* 	--sidebery-extended-width: 20vw;
+/* 	--sidebery-extended-margin-correction: calc((var(--sidebery-extended-width) - var(--sidebery-retracted-width)) * -1);
+/* 	--transparent-color: rgba(1, 1, 1, 0);
+/* 	--transition-duration: 0.1s;
+/* 	--hover-delay-duration: 0.1s;
+/* 	--transition-smoothing-function: ease-in-out;
+/* }
+/*
+/* #sidebar-box {
+/* 	background-color: #291d50 !important;
+/* }
+/*
+/* /* Extend sidebar normally, when not using SideBery. */
+/* #sidebar-box:not([sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]) {
+/* 	min-width: 0px !important;
+/* 	width: (--sidebery-extended-width) !important;
+/* 	max-width: none !important;
+/* }
+/*
+/* /* Retract sidebar, when using SideBery. */
+/* #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
+/* 	min-width: var(--sidebery-retracted-width) !important;
+/* 	max-width: var(--sidebery-retracted-width) !important;
+/*
+/* 	/* Set explicit z-index, to enable sidebar displaying over app content. */
+/* 	z-index: 1;
+/*
+/* 	/* Margin zero, instead of auto, suppresses jittering. */
+/* 	margin-right: 0;
+/* 	margin-left: 0;
+/*
+/* 	/* Fix for sidebar closing on tab drop. */
+/* 	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration);
+/* }
+/*
+/* /* Extend sidebar on hover, when using SideBery. */
+/* #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:hover {
+/* 	min-width: var(--sidebery-extended-width) !important;
+/* 	max-width: var(--sidebery-extended-width) !important;
+/*
+/* 	/* Correct left-margin to keep page from being pushed to the side. */
+/* 	margin-left: var(--sidebery-extended-margin-correction);
+/* 	margin-right: 0;
+/*
+/* 	opacity: 1;
+/*
+/* 	/* Fix for sidebar closing on tab drop. */
+/* 	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration);
+/* }
+/* From https://gist.github.com/morrolinux/87aa37396432ea5d14a9220bc4892100 */
+/* #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]+#sidebar-splitter {
+/* 	display: none !important;
+/* }
+/* #TabsToolbar {
+/* 	visibility: collapse !important;
+/* }
+/* #TabsToolbar:not([customizing="true"]) {
+/* 	visibility: collapse !important;
+/* }
+*/
+
+/* Hide the sidebar header and toolbar menubar */
+#sidebar-header,
+#toolbar-menubar {
+	visibility: collapse !important;
+}
+
+/* Hide list tabs button */
+/* #alltabs-button {
+/* 	display: none !important;
+/* }
+
+/* Hide extension buttons in toolbar, but keep it clickable */
+#unified-extensions-button>.toolbarbutton-icon {
+	/* visibility: collapse !important; */
+	width: 0px !important;
+	z-index: -1000 !important;
+}
+
+/* Hide window-related buttons (close window, ...) */
+.titlebar-buttonbox-container {
+	display: none
+}
+
+/* Native context menu - List available here https: //searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#context-back,
+#context-back+menuseparator,
+#context-forward,
+#context-forward+menuseparator,
+#context-reload,
+#context-reload+menuseparator,
+#context-stop,
+#context-stop+menuseparator,
+#context-bookmarkpage,
+#context-bookmarkpage+menuseparator,
+#context-viewsource-goToLine,
+#context-viewsource-goToLine+menuseparator,
+#context-viewsource-wrapLongLines,
+#context-viewsource-wrapLongLines+menuseparator,
+#context-viewsource-highlightSyntax,
+#context-viewsource-highlightSyntax+menuseparator,
+#spell-no-suggestions,
+#spell-no-suggestions+menuseparator,
+#spell-add-to-dictionary,
+#spell-add-to-dictionary+menuseparator,
+#spell-undo-add-to-dictionary,
+#spell-undo-add-to-dictionary+menuseparator,
+#context-openlinkincurrent,
+#context-openlinkincurrent+menuseparator,
+#context-openlinkincontainertab,
+#context-openlinkincontainertab+menuseparator,
+/* #context-openlinkintab,
+#context-openlinkintab+menuseparator, */
+#context-openlink,
+#context-openlink+menuseparator,
+#context-openlinkprivate,
+#context-openlinkprivate+menuseparator,
+#context-bookmarklink,
+#context-bookmarklink+menuseparator,
+#context-savelink,
+#context-savelink+menuseparator,
+#context-savelinktopocket,
+#context-savelinktopocket+menuseparator,
+/* #context-copyemail,
+#context-copyemail+menuseparator,
+#context-copyphone,
+#context-copyphone+menuseparator,
+#context-copylink,
+#context-copylink+menuseparator, */
+#context-stripOnShareLink,
+#context-stripOnShareLink+menuseparator,
+#context-media-play,
+#context-media-play+menuseparator,
+#context-media-pause,
+#context-media-pause+menuseparator,
+#context-media-mute,
+#context-media-mute+menuseparator,
+#context-media-unmute,
+#context-media-unmute+menuseparator,
+#context-media-playbackrate-050x,
+#context-media-playbackrate-050x+menuseparator,
+#context-media-playbackrate-100x,
+#context-media-playbackrate-100x+menuseparator,
+#context-media-playbackrate-125x,
+#context-media-playbackrate-125x+menuseparator,
+#context-media-playbackrate-150x,
+#context-media-playbackrate-150x+menuseparator,
+#context-media-playbackrate-200x,
+#context-media-playbackrate-200x+menuseparator,
+#context-media-loop,
+#context-media-loop+menuseparator,
+#context-leave-dom-fullscreen,
+#context-leave-dom-fullscreen+menuseparator,
+#context-video-fullscreen,
+#context-video-fullscreen+menuseparator,
+#context-media-hidecontrols,
+#context-media-hidecontrols+menuseparator,
+#context-media-showcontrols,
+#context-media-showcontrols+menuseparator,
+#context-viewvideo,
+#context-viewvideo+menuseparator,
+#context-video-pictureinpicture,
+#context-video-pictureinpicture+menuseparator,
+#context-reloadimage,
+#context-reloadimage+menuseparator,
+/* #context-viewimage,
+#context-viewimage+menuseparator, */
+/* #context-saveimage,
+#context-saveimage+menuseparator, */
+#context-video-saveimage,
+#context-video-saveimage+menuseparator,
+/* #context-savevideo,
+#context-savevideo+menuseparator, */
+/* #context-saveaudio,
+#context-saveaudio+menuseparator, */
+/* #context-copyimage-contents,
+#context-copyimage-contents+menuseparator, */
+/* #context-copyimage,
+#context-copyimage+menuseparator, */
+/* #context-copyvideourl,
+#context-copyvideourl+menuseparator, */
+/* #context-copyaudiourl,
+#context-copyaudiourl+menuseparator, */
+#context-sendimage,
+#context-sendimage+menuseparator,
+#context-sendvideo,
+#context-sendvideo+menuseparator,
+#context-sendaudio,
+#context-sendaudio+menuseparator,
+#context-imagetext,
+#context-imagetext+menuseparator,
+#context-viewimageinfo,
+#context-viewimageinfo+menuseparator,
+#context-viewimagedesc,
+#context-viewimagedesc+menuseparator,
+#context-setDesktopBackground,
+#context-setDesktopBackground+menuseparator,
+#context-bookmarkpage,
+#context-bookmarkpage+menuseparator,
+#context-savepage,
+#context-savepage+menuseparator,
+#context-pocket,
+#context-pocket+menuseparator,
+#fill-login-generated-password,
+#fill-login-generated-password+menuseparator,
+#use-relay-mask,
+#use-relay-mask+menuseparator,
+#manage-saved-logins,
+#manage-saved-logins+menuseparator,
+/* #context-undo,
+#context-undo+menuseparator,
+#context-redo,
+#context-redo+menuseparator,
+#context-cut,
+#context-cut+menuseparator,
+#context-copy,
+#context-copy+menuseparator,
+#context-paste,
+#context-paste+menuseparator,
+#context-paste-no-formatting,
+#context-paste-no-formatting+menuseparator,
+#context-delete,
+#context-delete+menuseparator,
+#context-selectall,
+#context-selectall+menuseparator, */
+#context-pdfjs-highlight-selection,
+#context-pdfjs-highlight-selection+menuseparator,
+/* #context-reveal-password,
+#context-reveal-password+menuseparator, */
+#context-print-selection,
+#context-print-selection+menuseparator,
+/* #context-pdfjs-undo,
+#context-pdfjs-undo+menuseparator,
+#context-pdfjs-redo,
+#context-pdfjs-redo+menuseparator,
+#context-pdfjs-cut,
+#context-pdfjs-cut+menuseparator,
+#context-pdfjs-copy,
+#context-pdfjs-copy+menuseparator,
+#context-pdfjs-paste,
+#context-pdfjs-paste+menuseparator,
+#context-pdfjs-delete,
+#context-pdfjs-delete+menuseparator,
+#context-pdfjs-selectall,
+#context-pdfjs-selectall+menuseparator, */
+#context-take-screenshot,
+#context-take-screenshot+menuseparator,
+#context-keywordfield,
+#context-keywordfield+menuseparator,
+#context-searchselect,
+#context-searchselect+menuseparator,
+#context-searchselect-private,
+#context-searchselect-private+menuseparator,
+#context-translate-selection,
+#context-translate-selection+menuseparator,
+#context-showonlythisframe,
+#context-showonlythisframe+menuseparator,
+#context-openframeintab,
+#context-openframeintab+menuseparator,
+#context-openframe,
+#context-openframe+menuseparator,
+#context-reloadframe,
+#context-reloadframe+menuseparator,
+#context-bookmarkframe,
+#context-bookmarkframe+menuseparator,
+#context-saveframe,
+#context-saveframe+menuseparator,
+#context-printframe,
+#context-printframe+menuseparator,
+#context-take-frame-screenshot,
+#context-take-frame-screenshot+menuseparator,
+#context-viewframesource,
+#context-viewframesource+menuseparator,
+#context-viewframeinfo,
+#context-viewframeinfo+menuseparator,
+#context-frameOsPid,
+#context-frameOsPid+menuseparator,
+#spell-check-enabled,
+#spell-check-enabled+menuseparator,
+#spell-add-dictionaries-main,
+#spell-add-dictionaries-main+menuseparator,
+#spell-add-dictionaries,
+#spell-add-dictionaries+menuseparator,
+#context-viewpartialsource-selection,
+#context-viewpartialsource-selection+menuseparator,
+#context-viewsource,
+#context-viewsource+menuseparator,
+#context-inspect-a11y,
+#context-inspect-a11y+menuseparator,
+#context-inspect,
+#context-inspect+menuseparator,
+#context-media-eme-learnmore #context-media-eme-learnmore+menuseparator {
+	display: none !important;
+}
