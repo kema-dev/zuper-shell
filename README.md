@@ -2,6 +2,13 @@
 
 A collection of scripts, configurations, and dotfiles to enhance your shell experience. The configuration is opinionated and is tailored to my needs, you may use it as a reference or as a starting point for your own configuration. Feel free to contribute or suggest improvements!
 
+## Features
+
+- [Dotfiles](./dotfiles/) - Configuration files for various tools
+- [Shell](./dotfiles/shell/) - ZSH configuration with prompt, aliases, functions, completions, and more
+- [Scripts](./dotfiles/scripts/) - Useful scripts for everyday tasks
+- [Clipboard](./dotfiles/scripts/clipboard/) - Dumb TUI clipboard manager
+
 > [!NOTE]
 > Each directory contains a README with more information!
 
