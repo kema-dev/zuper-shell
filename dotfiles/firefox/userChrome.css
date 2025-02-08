@@ -1,85 +1,35 @@
-/* Inspired from https://gist.github.com/hylophile/e72628eff973d6012e9170164db7661e */
+/* Inspired by https://github.com/LuckyLuuk12/firefox-vertical-tabs */
 
-/* /* Set variables for sidebar widths and margins */
-/* :root {
-/* 	--sidebery-retracted-width: 30px;
-/* 	--sidebery-extended-width: 20vw;
-/* 	--sidebery-extended-margin-correction: calc((var(--sidebery-extended-width) - var(--sidebery-retracted-width)) * -1);
-/* 	--transparent-color: rgba(1, 1, 1, 0);
-/* 	--transition-duration: 0.1s;
-/* 	--hover-delay-duration: 0.1s;
-/* 	--transition-smoothing-function: ease-in-out;
-/* }
 /*
-/* #sidebar-box {
-/* 	background-color: #291d50 !important;
-/* }
-/*
-/* /* Extend sidebar normally, when not using SideBery. */
-/* #sidebar-box:not([sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]) {
-/* 	min-width: 0px !important;
-/* 	width: (--sidebery-extended-width) !important;
-/* 	max-width: none !important;
-/* }
-/*
-/* /* Retract sidebar, when using SideBery. */
-/* #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
-/* 	min-width: var(--sidebery-retracted-width) !important;
-/* 	max-width: var(--sidebery-retracted-width) !important;
-/*
-/* 	/* Set explicit z-index, to enable sidebar displaying over app content. */
-/* 	z-index: 1;
-/*
-/* 	/* Margin zero, instead of auto, suppresses jittering. */
-/* 	margin-right: 0;
-/* 	margin-left: 0;
-/*
-/* 	/* Fix for sidebar closing on tab drop. */
-/* 	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration);
-/* }
-/*
-/* /* Extend sidebar on hover, when using SideBery. */
-/* #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:hover {
-/* 	min-width: var(--sidebery-extended-width) !important;
-/* 	max-width: var(--sidebery-extended-width) !important;
-/*
-/* 	/* Correct left-margin to keep page from being pushed to the side. */
-/* 	margin-left: var(--sidebery-extended-margin-correction);
-/* 	margin-right: 0;
-/*
-/* 	opacity: 1;
-/*
-/* 	/* Fix for sidebar closing on tab drop. */
-/* 	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration);
-/* }
-/* From https://gist.github.com/morrolinux/87aa37396432ea5d14a9220bc4892100 */
-/* #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]+#sidebar-splitter {
-/* 	display: none !important;
-/* }
-/* #TabsToolbar {
-/* 	visibility: collapse !important;
-/* }
-/* #TabsToolbar:not([customizing="true"]) {
-/* 	visibility: collapse !important;
-/* }
+	It is recommended to set the sidebar position (in sidebar settings) to the opposite side of the actual tabs sidebar, so that the sidebars does not overlap with the tabs sidebar.
 */
 
-/* Hide the sidebar header and toolbar menubar */
-#sidebar-header,
-#toolbar-menubar {
-	visibility: collapse !important;
+* {
+	--retracted-width: 52px;
+	--expanded-width: 20vw;
+	/* Swap the values of --left-side and --right-side to move the sidebar to the left side of the window. */
+	--left-side: auto;
+	--right-side: 0;
+	--sidebar-background-color: #fcf2ff;
+	--hover-delay-duration: 0.1s;
+	--transition-duration: 0.2s;
+	--transition-smoothing-function: ease-in-out;
 }
 
-/* Hide list tabs button */
-/* #alltabs-button {
-/* 	display: none !important;
-/* }
-
-/* Hide extension buttons in toolbar, but keep it clickable */
-#unified-extensions-button>.toolbarbutton-icon {
-	/* visibility: collapse !important; */
-	width: 0px !important;
-	z-index: -1000 !important;
+/* Tabs sidebar base */
+#sidebar-main {
+	z-index: 10;
+	position: absolute !important;
+	height: 100%;
+	left: var(--left-side) !important;
+	right: var(--right-side) !important;
+	background: var(--sidebar-background-color);
+	width: var(--retracted-width) !important;
+	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration);
+}
+/* Auto expand sidebar on hover */
+#sidebar-main:hover {
+	width: var(--expanded-width) !important;
 }
 
 /* Hide window-related buttons (close window, ...) */
@@ -87,7 +37,14 @@
 	display: none
 }
 
-/* Native context menu - List available here https: //searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
+/* Hide extension buttons in toolbar, but keep it clickable */
+#unified-extensions-button>.toolbarbutton-icon {
+	/* visibility: collapse !important; */
+	width: 0px !important;
+	z-index: -10 !important;
+}
+
+/* Native context menu - List available here https://searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
