@@ -17,7 +17,7 @@
       shortcut: "<Primary><Alt>x",
       title: "Clipboard Manager",
       command:
-        'alacritty --title="Clipboard Manager" --class="Clipboard Manager" --option window.startup_mode=\\"Maximized\\" --command /path/to/scripts/clipboard/client/client.sh',
+        'alacritty --title="Clipboard Manager" --class="Clipboard Manager" --option window.startup_mode=\"Maximized\" --command /path/to/scripts/clipboard/client/client.sh',
     }
   ];
   ```
