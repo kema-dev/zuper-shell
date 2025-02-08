@@ -1,13 +1,11 @@
 /* Inspired by https://github.com/LuckyLuuk12/firefox-vertical-tabs */
 
-/*
-	It is recommended to set the sidebar position (in sidebar settings) to the opposite side of the actual tabs sidebar, so that the sidebars does not overlap with the tabs sidebar.
-*/
+/* You need to enable vertical tabs */
 
 * {
 	--retracted-width: 52px;
 	--expanded-width: 20vw;
-	/* Swap the values of --left-side and --right-side to move the sidebar to the left side of the window. */
+	/* Right side tabs sidebar settings, swap --left-side and --right-side values if you want it on the left */
 	--left-side: auto;
 	--right-side: 0;
 	--sidebar-background-color: #fcf2ff;
@@ -18,28 +16,29 @@
 
 /* Tabs sidebar base */
 #sidebar-main {
-	z-index: 10;
-	position: absolute !important;
-	height: 100%;
+	z-index: 10 !important;
+	height: 100% !important;
 	left: var(--left-side) !important;
 	right: var(--right-side) !important;
-	background: var(--sidebar-background-color);
 	width: var(--retracted-width) !important;
-	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration);
+	position: relative !important;
+	background: var(--sidebar-background-color) !important;
+	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration) !important;
 }
 /* Auto expand sidebar on hover */
 #sidebar-main:hover {
 	width: var(--expanded-width) !important;
+	/* Actually kind-of just overlap instead of reducing the width of the main window */
+	margin-left: calc(var(--expanded-width) * -1 + var(--retracted-width)) !important;
 }
 
 /* Hide window-related buttons (close window, ...) */
 .titlebar-buttonbox-container {
-	display: none
+	display: none !important;
 }
 
 /* Hide extension buttons in toolbar, but keep it clickable */
 #unified-extensions-button>.toolbarbutton-icon {
-	/* visibility: collapse !important; */
 	width: 0px !important;
 	z-index: -10 !important;
 }
