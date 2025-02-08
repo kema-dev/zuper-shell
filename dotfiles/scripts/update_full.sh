@@ -243,6 +243,13 @@ function get_git_repos() {
 			fi
 		fi
 	fi
+	if [[ -n "${KEMA_DOTFILES_DIR_PUBLIC}" ]]; then
+		if [[ -d "${KEMA_DOTFILES_DIR_PUBLIC}" ]]; then
+			if [[ -d "${KEMA_DOTFILES_DIR_PUBLIC}/.git" ]]; then
+				git_repos+=("${KEMA_DOTFILES_DIR_PUBLIC}")
+			fi
+		fi
+	fi
 }
 
 function update_git() {
