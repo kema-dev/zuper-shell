@@ -29,7 +29,8 @@ zstyle ':completion:*' complete-options false
 # enable file sorting by name
 zstyle ':completion:*' file-sort name
 # enable partial completion
-# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# 'm:{a-zA-Z}={A-Za-z} is messy with fzf-tab, when getting 2 matches with same prefix but different cases, fzf-tab will not show the lower case one
+zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # disable completion for some commands
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 # disable automatic completion commands updating
