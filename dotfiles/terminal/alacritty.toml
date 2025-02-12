@@ -1,0 +1,85 @@
+
+[bell]
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "0x8a8a8a"
+blue = "0x367bf0"
+cyan = "0x49AEE6"
+green = "0x5EBDAB"
+magenta = "0xBF2E5D"
+red = "0xD41919"
+white = "0xFFFFFF"
+yellow = "0xFEA44C"
+
+[colors.normal]
+black = "0x1F2229"
+blue = "0x0087ff"
+cyan = "0x05A1F7"
+green = "0x47D4B9"
+magenta = "0xD71655"
+red = "0xEC0101"
+white = "0x888888"
+yellow = "0xFF8A18"
+
+[colors.primary]
+background = "0x262626"
+foreground = "0xF2F2F2"
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[[keyboard.bindings]]
+action = "PasteSelection"
+key = "V"
+mods = "Control|Shift"
+
+[mouse]
+hide_when_typing = true
+
+[scrolling]
+history = 10000
+
+[selection]
+save_to_clipboard = false
+
+[terminal.shell]
+program = "/home/linuxbrew/.linuxbrew/bin/tmux"
+
+[window.dimensions]
+columns = 120
+lines = 30
+
+[general]
+live_config_reload = false
+
+[terminal]
+
+[window]
+decorations = "full"
+dynamic_title = true

@@ -1,0 +1,31 @@
+hotKeys:
+  1-ns-all:
+    shortCut: '1'
+    override: true
+    description: Switch to namespace all
+    command: ns all
+  2-ns-kube-system:
+    shortCut: '2'
+    override: true
+    description: Switch to namespace kube-system
+    command: namespace kube-system
+  3-ns-kube-public:
+    shortCut: '3'
+    override: true
+    description: Switch to namespace kube-public
+    command: namespace kube-public
+  4-ns-kube-node-lease:
+    shortCut: '4'
+    override: true
+    description: Switch to namespace kube-node-lease
+    command: namespace kube-node-lease
+  5-ns-default:
+    shortCut: '5'
+    override: true
+    description: Switch to namespace default
+    command: namespace default
+  6-ns-kube-system-app-cilium:
+    shortCut: '6'
+    override: true
+    description: Switch to cilium pods
+    command: pod all app.kubernetes.io/part-of=cilium

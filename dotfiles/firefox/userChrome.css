@@ -1,0 +1,284 @@
+/* Inspired by https://github.com/LuckyLuuk12/firefox-vertical-tabs */
+
+/* You need to enable vertical tabs */
+
+* {
+	--retracted-width: 52px;
+	--expanded-width: 20vw;
+	/* Right side tabs sidebar settings, swap --left-side and --right-side values if you want it on the left */
+	--left-side: auto;
+	--right-side: 0;
+	--sidebar-background-color: #fcf2ff;
+	--hover-delay-duration: 0.1s;
+	--transition-duration: 0.2s;
+	--transition-smoothing-function: ease-in-out;
+}
+
+/* Tabs sidebar base */
+#sidebar-main {
+	z-index: 10 !important;
+	height: 100% !important;
+	left: var(--left-side) !important;
+	right: var(--right-side) !important;
+	width: var(--retracted-width) !important;
+	position: relative !important;
+	background: var(--sidebar-background-color) !important;
+	transition: all var(--transition-duration) var(--transition-smoothing-function) var(--hover-delay-duration) !important;
+}
+
+/* Auto expand sidebar on hover */
+#sidebar-main:hover {
+	width: var(--expanded-width) !important;
+	/* Actually kind-of just overlap instead of reducing the width of the main window */
+	margin-left: calc(var(--expanded-width) * -1 + var(--retracted-width)) !important;
+}
+
+/* https://hg.mozilla.org/mozilla-central/file/tip/browser/themes/shared/tabbrowser/tabs.css#l1247 */
+/* Do not use horizontal display for pinned tabs */
+#vertical-pinned-tabs-container {
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+/* Display tabs informations instead of just icons */
+/* Actually dragging pinned tabs is a complete mess but otherwise this layout looks convenient so I keep it */
+#vertical-pinned-tabs-container .tab-label-container {
+	display: flex !important;
+	flex-direction: column !important;
+	margin-left: 8px !important;
+}
+
+#vertical-pinned-tabs-container .tab-throbber,
+#vertical-pinned-tabs-container .tab-icon-pending,
+#vertical-pinned-tabs-container .tab-icon-image,
+#vertical-pinned-tabs-container .tab-sharing-icon-overlay,
+#vertical-pinned-tabs-container .tab-icon-overlay {
+	display: flex !important;
+	flex-direction: column !important;
+	margin-left: 8px !important;
+}
+
+/* Hide window-related buttons (close window, ...) */
+.titlebar-buttonbox-container {
+	display: none !important;
+}
+
+/* Hide extension buttons in toolbar, but keep it clickable */
+#unified-extensions-button>.toolbarbutton-icon {
+	width: 0px !important;
+	z-index: -10 !important;
+}
+
+/* Native context menu - List available here https://searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#context-back,
+#context-back+menuseparator,
+#context-forward,
+#context-forward+menuseparator,
+#context-reload,
+#context-reload+menuseparator,
+#context-stop,
+#context-stop+menuseparator,
+#context-bookmarkpage,
+#context-bookmarkpage+menuseparator,
+#context-viewsource-goToLine,
+#context-viewsource-goToLine+menuseparator,
+#context-viewsource-wrapLongLines,
+#context-viewsource-wrapLongLines+menuseparator,
+#context-viewsource-highlightSyntax,
+#context-viewsource-highlightSyntax+menuseparator,
+#spell-no-suggestions,
+#spell-no-suggestions+menuseparator,
+#spell-add-to-dictionary,
+#spell-add-to-dictionary+menuseparator,
+#spell-undo-add-to-dictionary,
+#spell-undo-add-to-dictionary+menuseparator,
+#context-openlinkincurrent,
+#context-openlinkincurrent+menuseparator,
+#context-openlinkincontainertab,
+#context-openlinkincontainertab+menuseparator,
+/* #context-openlinkintab,
+#context-openlinkintab+menuseparator, */
+#context-openlink,
+#context-openlink+menuseparator,
+#context-openlinkprivate,
+#context-openlinkprivate+menuseparator,
+#context-bookmarklink,
+#context-bookmarklink+menuseparator,
+#context-savelink,
+#context-savelink+menuseparator,
+#context-savelinktopocket,
+#context-savelinktopocket+menuseparator,
+/* #context-copyemail,
+#context-copyemail+menuseparator,
+#context-copyphone,
+#context-copyphone+menuseparator,
+#context-copylink,
+#context-copylink+menuseparator, */
+#context-stripOnShareLink,
+#context-stripOnShareLink+menuseparator,
+#context-media-play,
+#context-media-play+menuseparator,
+#context-media-pause,
+#context-media-pause+menuseparator,
+#context-media-mute,
+#context-media-mute+menuseparator,
+#context-media-unmute,
+#context-media-unmute+menuseparator,
+#context-media-playbackrate-050x,
+#context-media-playbackrate-050x+menuseparator,
+#context-media-playbackrate-100x,
+#context-media-playbackrate-100x+menuseparator,
+#context-media-playbackrate-125x,
+#context-media-playbackrate-125x+menuseparator,
+#context-media-playbackrate-150x,
+#context-media-playbackrate-150x+menuseparator,
+#context-media-playbackrate-200x,
+#context-media-playbackrate-200x+menuseparator,
+#context-media-loop,
+#context-media-loop+menuseparator,
+#context-leave-dom-fullscreen,
+#context-leave-dom-fullscreen+menuseparator,
+#context-video-fullscreen,
+#context-video-fullscreen+menuseparator,
+#context-media-hidecontrols,
+#context-media-hidecontrols+menuseparator,
+#context-media-showcontrols,
+#context-media-showcontrols+menuseparator,
+#context-viewvideo,
+#context-viewvideo+menuseparator,
+#context-video-pictureinpicture,
+#context-video-pictureinpicture+menuseparator,
+#context-reloadimage,
+#context-reloadimage+menuseparator,
+/* #context-viewimage,
+#context-viewimage+menuseparator, */
+/* #context-saveimage,
+#context-saveimage+menuseparator, */
+#context-video-saveimage,
+#context-video-saveimage+menuseparator,
+/* #context-savevideo,
+#context-savevideo+menuseparator, */
+/* #context-saveaudio,
+#context-saveaudio+menuseparator, */
+/* #context-copyimage-contents,
+#context-copyimage-contents+menuseparator, */
+/* #context-copyimage,
+#context-copyimage+menuseparator, */
+/* #context-copyvideourl,
+#context-copyvideourl+menuseparator, */
+/* #context-copyaudiourl,
+#context-copyaudiourl+menuseparator, */
+#context-sendimage,
+#context-sendimage+menuseparator,
+#context-sendvideo,
+#context-sendvideo+menuseparator,
+#context-sendaudio,
+#context-sendaudio+menuseparator,
+#context-imagetext,
+#context-imagetext+menuseparator,
+#context-viewimageinfo,
+#context-viewimageinfo+menuseparator,
+#context-viewimagedesc,
+#context-viewimagedesc+menuseparator,
+#context-setDesktopBackground,
+#context-setDesktopBackground+menuseparator,
+#context-bookmarkpage,
+#context-bookmarkpage+menuseparator,
+#context-savepage,
+#context-savepage+menuseparator,
+#context-pocket,
+#context-pocket+menuseparator,
+#fill-login-generated-password,
+#fill-login-generated-password+menuseparator,
+#use-relay-mask,
+#use-relay-mask+menuseparator,
+#manage-saved-logins,
+#manage-saved-logins+menuseparator,
+/* #context-undo,
+#context-undo+menuseparator,
+#context-redo,
+#context-redo+menuseparator,
+#context-cut,
+#context-cut+menuseparator,
+#context-copy,
+#context-copy+menuseparator,
+#context-paste,
+#context-paste+menuseparator,
+#context-paste-no-formatting,
+#context-paste-no-formatting+menuseparator,
+#context-delete,
+#context-delete+menuseparator,
+#context-selectall,
+#context-selectall+menuseparator, */
+#context-pdfjs-highlight-selection,
+#context-pdfjs-highlight-selection+menuseparator,
+/* #context-reveal-password,
+#context-reveal-password+menuseparator, */
+#context-print-selection,
+#context-print-selection+menuseparator,
+/* #context-pdfjs-undo,
+#context-pdfjs-undo+menuseparator,
+#context-pdfjs-redo,
+#context-pdfjs-redo+menuseparator,
+#context-pdfjs-cut,
+#context-pdfjs-cut+menuseparator,
+#context-pdfjs-copy,
+#context-pdfjs-copy+menuseparator,
+#context-pdfjs-paste,
+#context-pdfjs-paste+menuseparator,
+#context-pdfjs-delete,
+#context-pdfjs-delete+menuseparator,
+#context-pdfjs-selectall,
+#context-pdfjs-selectall+menuseparator, */
+#context-take-screenshot,
+#context-take-screenshot+menuseparator,
+#context-keywordfield,
+#context-keywordfield+menuseparator,
+#context-searchselect,
+#context-searchselect+menuseparator,
+#context-searchselect-private,
+#context-searchselect-private+menuseparator,
+#context-translate-selection,
+#context-translate-selection+menuseparator,
+#context-showonlythisframe,
+#context-showonlythisframe+menuseparator,
+#context-openframeintab,
+#context-openframeintab+menuseparator,
+#context-openframe,
+#context-openframe+menuseparator,
+#context-reloadframe,
+#context-reloadframe+menuseparator,
+#context-bookmarkframe,
+#context-bookmarkframe+menuseparator,
+#context-saveframe,
+#context-saveframe+menuseparator,
+#context-printframe,
+#context-printframe+menuseparator,
+#context-take-frame-screenshot,
+#context-take-frame-screenshot+menuseparator,
+#context-viewframesource,
+#context-viewframesource+menuseparator,
+#context-viewframeinfo,
+#context-viewframeinfo+menuseparator,
+#context-frameOsPid,
+#context-frameOsPid+menuseparator,
+#spell-check-enabled,
+#spell-check-enabled+menuseparator,
+#spell-add-dictionaries-main,
+#spell-add-dictionaries-main+menuseparator,
+#spell-add-dictionaries,
+#spell-add-dictionaries+menuseparator,
+#context-viewpartialsource-selection,
+#context-viewpartialsource-selection+menuseparator,
+#context-viewsource,
+#context-viewsource+menuseparator,
+#context-inspect-a11y,
+#context-inspect-a11y+menuseparator,
+#context-inspect,
+#context-inspect+menuseparator,
+#context-media-eme-learnmore #context-media-eme-learnmore+menuseparator {
+	display: none !important;
+}

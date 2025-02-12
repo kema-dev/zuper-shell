@@ -1,0 +1,34 @@
+plugins:
+  debug:
+    shortCut: Shift-D
+    description: Start debug container
+    dangerous: true
+    scopes:
+      - pods
+    command: bash
+    background: false
+    confirm: true
+    args:
+      - -c
+      - kubectl debug -it --share-processes --image=alpine --context ${CONTEXT} -n=${NAMESPACE} ${NAME}
+  remove_finalizers:
+    shortCut: Shift-K
+    confirm: true
+    dangerous: true
+    scopes:
+      - all
+    description: Remove all finalizers
+    command: kubectl
+    background: true
+    args:
+      - patch
+      - --context
+      - ${CONTEXT}
+      - --namespace
+      - ${NAMESPACE}
+      - ${RESOURCE_NAME}
+      - ${NAME}
+      - -p
+      - '{"metadata":{"finalizers":null}}'
+      - --type
+      - merge
