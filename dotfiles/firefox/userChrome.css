@@ -39,6 +39,10 @@
 	display: flex !important;
 	flex-direction: column !important;
 }
+/* Do not display pinned tabs separator */
+#vertical-pinned-tabs-container-separator {
+	display: none !important;
+}
 
 /* Display tabs informations instead of just icons */
 /* Actually dragging pinned tabs is a complete mess but otherwise this layout looks convenient so I keep it */
