@@ -27,7 +27,7 @@ function check_key_name() {
 		echo "The key name should be alphanumeric and _ only."
 		exit 1
 	fi
-	if [[ -f "${SSH_KEYS_DIR}/${1:-}" ]]; then
+	if [[ -f "${KEMA_SSH_KEYS_DIR}/${1:-}" ]]; then
 		echo "The key name is already in use."
 		exit 1
 	fi
