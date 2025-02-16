@@ -41,10 +41,10 @@ function add_to_cb_manager() {
     CURRENT_CLIPBOARD_SUM="$(compute_hashed_name "${CURRENT_CLIPBOARD}")"
     local EXISTING_FILES
     EXISTING_FILES="$(ls -1t 2>/dev/null)"
-    echo -n "${CURRENT_CLIPBOARD}" >"${CURRENT_CLIPBOARD_SUM}"
     local COLLISION
     COLLISION="$(echo "${EXISTING_FILES}" | grep "${CURRENT_CLIPBOARD_SUM}" | head -n 1 || echo -n "")"
-    if [[ -n "${COLLISION}" ]]; then
+    echo -n "${CURRENT_CLIPBOARD}" >"${CURRENT_CLIPBOARD_SUM}"
+    if [[ -z "${COLLISION}" ]]; then
         NUMBER_OF_FILES="$((NUMBER_OF_FILES + 1))"
     fi
     # any file created outside of this script will mess up the count, but counting each time is slower
