@@ -61,7 +61,7 @@ function fuzzy_clone() {
     if [[ "${SELECTED_REPO}" =~ ^([^/]+)/([^/]+)/([^/]+)(/pull/([0-9]+))? ]]; then
         HOST="${BASH_REMATCH[1]}"
         ORG="${BASH_REMATCH[2]}"
-        REPO="${BASH_REMATCH[3]}"
+        REPO="${BASH_REMATCH[3]/.git/}"
         if [[ -n "${BASH_REMATCH[5]}" ]]; then
             PULL_REQUEST_NUMBER="${BASH_REMATCH[5]}"
             echo "Pull request number: ${PULL_REQUEST_NUMBER}"
