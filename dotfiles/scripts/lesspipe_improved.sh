@@ -22,6 +22,7 @@ function translate_type_to_bat() {
 	"powershell") echo -n "ps1" && return 0 ;;
 	"python") echo -n "py" && return 0 ;;
 	"rust") echo -n "rs" && return 0 ;;
+	"jsonl") echo -n "json" && return 0 ;;
 	esac
 	echo -n "${1:-}"
 }
