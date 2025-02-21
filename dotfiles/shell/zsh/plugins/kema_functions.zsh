@@ -123,3 +123,14 @@ function watch() {
 		sleep 1
 	done
 }
+
+# init go mod for current directory, based on git remote origin
+function gmi() {
+	local repo_base
+	repo_base="$(git remote get-url origin | sed -e 's|https://||g' -e 's|.git||g')"
+	local path_from_git_root
+	path_from_git_root="$(git rev-parse --show-prefix)"
+	local repo_path
+	repo_path="$(echo "${repo_base}/${path_from_git_root}" | sed -e 's|/$||g')"
+	go mod init "${repo_path}"
+}
