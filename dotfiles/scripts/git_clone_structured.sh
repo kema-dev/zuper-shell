@@ -93,8 +93,8 @@ function fuzzy_clone() {
     if [[ "${CODE_INTO}" -eq 1 ]]; then
         if [[ -n "${PULL_REQUEST_NUMBER:-}" ]]; then
             if ! git -C "${REPO_DIR}" branch --show-current | grep -q "^${BRANCH}$"; then
-                git -C "${REPO_DIR}" fetch origin "${BRANCH}:${BRANCH}"
                 git -C "${REPO_DIR}" switch "${BRANCH}"
+                git -C "${REPO_DIR}" pull
             fi
         fi
         code "${REUSE_WINDOW:-}" "${REPO_DIR}"
