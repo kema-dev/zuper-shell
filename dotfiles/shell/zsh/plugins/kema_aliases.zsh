@@ -18,6 +18,8 @@ alias gl='git pull --tags'
 alias gg='go get'
 alias ggu='go get -u'
 alias ggua='go get -u ./...'
+alias gwi='go work init'
+alias gwu='go work use'
 # piping
 alias -g L='| less'
 alias -g LL='2>&1 | less'
