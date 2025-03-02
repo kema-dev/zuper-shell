@@ -24,9 +24,8 @@ function parse_args() {
 function get_preview_json() {
 	export TARGETS_FILE
 	TARGETS_FILE="$(mktemp)"
-	# trap 'rm -f "${TARGETS_FILE}"' EXIT
-	# pulumi preview --json > "${TARGETS_FILE}"
-	TARGETS_FILE="/tmp/foo.json"
+	trap 'rm -f "${TARGETS_FILE}"' EXIT
+	pulumi preview --json > "${TARGETS_FILE}"
 }
 
 function select_targets() {
