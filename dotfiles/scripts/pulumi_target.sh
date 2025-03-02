@@ -37,7 +37,7 @@ function run_pulumi_up() {
 	local TAREGTS_ARGS
 	TAREGTS_ARGS="$(echo -n "${SELECTED_TARGETS}" | sed "s|^| --target |g")"
 	# shellcheck disable=SC2086
-	echo pulumi up "${NO_DEPS_ARG}" ${TAREGTS_ARGS}
+	pulumi up "${NO_DEPS_ARG}" ${TAREGTS_ARGS}
 }
 
 function main() {
