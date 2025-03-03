@@ -2,7 +2,7 @@
 alias gh_rate_limit='gh api -H "Accept: application/vnd.github+json" /rate_limit'
 # https://github.com/dlvhdr/gh-dash
 alias ghdash='gh dash'
-alias gh_auth_login="gh auth login --scopes 'read:project gist read:org repo workflow'"
+alias gh_auth_login="gh auth login --scopes 'project gist repo workflow admin:org'"
 # https://github.com/davidraviv/gh-clean-branches
 alias git_clean_branches='gh clean-branches'
 alias l='ls -l'
@@ -196,4 +196,3 @@ alias tfa='terraform apply'
 alias tfd='terraform destroy'
 alias tfp='terraform plan'
 alias tfw='terraform workspace'
-
