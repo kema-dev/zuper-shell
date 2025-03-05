@@ -65,8 +65,17 @@
 	display: flex !important;
 	flex-direction: column !important;
 }
-#vertical-pinned-tabs-container .tab-label-container {
-	margin-left: 16px !important;
+#sidebar-main #vertical-pinned-tabs-container .tab-label-container {
+	display: none !important;
+}
+#sidebar-main:hover #vertical-pinned-tabs-container .tab-label-container {
+	display: flex !important;
+}
+
+/* Hide new tab button */
+#tabs-newtab-button,
+#vertical-tabs-newtab-button {
+	display: none !important;
 }
 
 /* Do not display the tab close button */
