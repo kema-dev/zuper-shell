@@ -3,7 +3,7 @@
 /* You need to enable vertical tabs */
 
 * {
-	--retracted-width: 52px;
+	--retracted-width: 48px;
 	--expanded-width: 20vw;
 	/* Right side tabs sidebar settings, swap --left-side and --right-side values if you want it on the left */
 	--left-side: auto;
@@ -33,6 +33,14 @@
 	margin-left: calc(var(--expanded-width) * -1 + var(--retracted-width)) !important;
 }
 
+#sidebar-main .tab-label-container {
+	display: none !important;
+}
+
+#sidebar-main:hover .tab-label-container {
+	display: flex !important;
+}
+
 /* https://hg.mozilla.org/mozilla-central/file/tip/browser/themes/shared/tabbrowser/tabs.css#l1247 */
 /* Do not use horizontal display for pinned tabs */
 #vertical-pinned-tabs-container {
@@ -46,20 +54,24 @@
 
 /* Display tabs informations instead of just icons */
 /* Actually dragging pinned tabs is a complete mess but otherwise this layout looks convenient so I keep it */
+
+#vertical-pinned-tabs-container .tab-icon-sound-label,
+#vertical-pinned-tabs-container .tab-throbber,
+#vertical-pinned-tabs-container .tab-icon-pending,
+#vertical-pinned-tabs-container .tab-sharing-icon-overlay,
+#vertical-pinned-tabs-container .tab-icon-overlay,
+#vertical-pinned-tabs-container .tab-icon-image,
 #vertical-pinned-tabs-container .tab-label-container {
 	display: flex !important;
 	flex-direction: column !important;
-	margin-left: 8px !important;
+}
+#vertical-pinned-tabs-container .tab-label-container {
+	margin-left: 16px !important;
 }
 
-#vertical-pinned-tabs-container .tab-throbber,
-#vertical-pinned-tabs-container .tab-icon-pending,
-#vertical-pinned-tabs-container .tab-icon-image,
-#vertical-pinned-tabs-container .tab-sharing-icon-overlay,
-#vertical-pinned-tabs-container .tab-icon-overlay {
-	display: flex !important;
-	flex-direction: column !important;
-	margin-left: 8px !important;
+/* Do not display the tab close button */
+.tab-close-button {
+	display: none !important;
 }
 
 /* Hide window-related buttons (close window, ...) */
