@@ -70,6 +70,7 @@
 }
 #sidebar-main:hover #vertical-pinned-tabs-container .tab-label-container {
 	display: flex !important;
+	margin-left: 8px !important;
 }
 
 /* Hide new tab button */
