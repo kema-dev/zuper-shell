@@ -81,8 +81,8 @@ blocks:
           mapped_locations:
             /tmp: "\U000f1750 "
             ~/.dotfiles: 󱀨 dotfiles
-          max_depth: 3
-          mixed_threshold: 5
+          max_depth: 5
+          mixed_threshold: 8
           style: agnoster_short
           windows_registry_icon: 
         leading_diamond: 
