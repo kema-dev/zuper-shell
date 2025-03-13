@@ -12,7 +12,7 @@ alias gst='git status -sb'
 alias gls='git pull --squash origin'
 alias git_print_default_branch_github='gh repo view --json defaultBranchRef --jq ".defaultBranchRef.name"'
 alias glds='git pull --squash origin $(git_print_default_branch_github)'
-alias gp='git push --all'
+alias gp='git push'
 alias gl='git pull --tags'
 # go
 alias gg='go get'
