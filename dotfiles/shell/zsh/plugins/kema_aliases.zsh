@@ -14,6 +14,7 @@ alias git_print_default_branch_github='gh repo view --json defaultBranchRef --jq
 alias glds='git pull --squash origin $(git_print_default_branch_github)'
 alias gp='git push'
 alias gl='git pull --tags'
+alias glr='gl --rebase'
 # go
 alias gg='go get'
 alias ggu='go get -u'
