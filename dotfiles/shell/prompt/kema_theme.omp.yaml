@@ -120,7 +120,8 @@ blocks:
           revert_icon: "\uf0e2 "
           tag_icon: "\uf412 "
           truncate_symbol: ""
-          upstream_icons: {}
+          upstream_icons:
+            heptapod.host: 
         leading_diamond: 
         trailing_diamond: "\ue0b4 "
         template: "{{ url .UpstreamIcon (print (replaceP \"\\\\.git\" .UpstreamURL \"\") \"/tree/\" .Ref) }}{{ if .UpstreamIcon }}{{ end }}{{ if .HEAD }} {{ .HEAD }}{{ end }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf0c7 {{ .StashCount }}{{ end }}"
