@@ -58,10 +58,13 @@ function fuzzy_clone() {
         fi
         SELECTED_REPO="${GH_HOST:-github.com}/${GH_USER}/${SELECTED_REPO}"
     fi
-    if [[ "${SELECTED_REPO}" =~ ^([^/]+)/([^/]+)/([^/]+)(/pull/([0-9]+))? ]]; then
+    if [[ "${SELECTED_REPO}" =~ ^([^\/]+)\/([^\/]+)\/([\/a-zA-Z0-9]+?)(\/pull\/([0-9]+))?$ ]]; then
         HOST="${BASH_REMATCH[1]}"
         ORG="${BASH_REMATCH[2]}"
         REPO="${BASH_REMATCH[3]/.git/}"
+        echo "Host: ${HOST}"
+        echo "Org: ${ORG}"
+        echo "Repo: ${REPO}"
         if [[ -n "${BASH_REMATCH[5]}" ]]; then
             PULL_REQUEST_NUMBER="${BASH_REMATCH[5]}"
             echo "Pull request number: ${PULL_REQUEST_NUMBER}"
