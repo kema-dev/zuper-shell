@@ -6,7 +6,7 @@ function get_branch_from_pull_request() {
         unset GH_HOST
     fi
     local BRANCH
-    BRANCH="$(gh pr view --repo "${SELECTED_REPO}" "${PULL_REQUEST_NUMBER}" --json headRefName --jq '.headRefName')"
+    BRANCH="$(gh pr view --repo "${SELECTED_REPO}" "${PR_MR_NUMBER}" --json headRefName --jq '.headRefName' 2>/dev/null || glab mr view --repo "${SELECTED_REPO}" "${PR_MR_NUMBER}" --output json | jq '.source_branch' 2>/dev/null | tr -d '"')"
     if [[ -z "${BRANCH}" ]]; then
         echo "Failed to get branch from pull request."
         return 1
@@ -58,24 +58,26 @@ function fuzzy_clone() {
         fi
         SELECTED_REPO="${GH_HOST:-github.com}/${GH_USER}/${SELECTED_REPO}"
     fi
-    if [[ "${SELECTED_REPO}" =~ ^([^\/]+)\/([^\/]+)\/([^\/]+)(\/pull\/([0-9]+))?$ ]]; then
-        HOST="${BASH_REMATCH[1]}"
-        ORG="${BASH_REMATCH[2]}"
-        REPO="${BASH_REMATCH[3]/.git/}"
-        if [[ -n "${BASH_REMATCH[5]}" ]]; then
-            PULL_REQUEST_NUMBER="${BASH_REMATCH[5]}"
-            echo "Pull request number: ${PULL_REQUEST_NUMBER}"
-        fi
+    local HOST_REGEX="^([^\/[:space:]]+)"
+    local ORG_REGEX="([^\/[:space:]]+)"
+    local REPO_REGEX="([^[:space:]]+?)(?:\.git)?"
+    local PR_MR_NUMBER_REGEX="(?:\/(?:-\/merge_requests|pull)\/([0-9]+))?$"
+    local GLOBAL_REGEX="${HOST_REGEX}\/${ORG_REGEX}\/${REPO_REGEX}${PR_MR_NUMBER_REGEX}"
+    if echo "${SELECTED_REPO}" | grep -qP "${GLOBAL_REGEX}"; then
+        HOST="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}(?=\/${ORG_REGEX}\/${REPO_REGEX}${PR_MR_NUMBER_REGEX})")"
+        ORG="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/\K${ORG_REGEX}(?=\/${REPO_REGEX}${PR_MR_NUMBER_REGEX})")"
+        REPO="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/${ORG_REGEX}\/\K${REPO_REGEX}(?=${PR_MR_NUMBER_REGEX})")"
+        PR_MR_NUMBER="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/${ORG_REGEX}\/${REPO_REGEX}\K${PR_MR_NUMBER_REGEX}" | grep -oP "\/\K[0-9]+" || echo "")"
     else
         echo "Failed to parse repository URL."
         return 1
     fi
     SELECTED_REPO="${HOST}/${ORG}/${REPO}"
     echo "Selected repo: ${SELECTED_REPO}"
-    if [[ -n "${PULL_REQUEST_NUMBER:-}" ]]; then
-        echo "Pull request number: ${PULL_REQUEST_NUMBER}"
+    if [[ -n "${PR_MR_NUMBER:-}" ]]; then
+        echo "Pull / Merge request number: ${PR_MR_NUMBER}"
     fi
-    if [[ -n "${PULL_REQUEST_NUMBER:-}" ]]; then
+    if [[ -n "${PR_MR_NUMBER:-}" ]]; then
         local BRANCH
         BRANCH="$(get_branch_from_pull_request)"
         if [[ -z "${BRANCH}" ]]; then
@@ -91,7 +93,7 @@ function fuzzy_clone() {
         git clone --recurse-submodules https://"${SELECTED_REPO}" "${REPO_DIR}"
     fi
     if [[ "${CODE_INTO}" -eq 1 ]]; then
-        if [[ -n "${PULL_REQUEST_NUMBER:-}" ]]; then
+        if [[ -n "${PR_MR_NUMBER:-}" ]]; then
             if ! git -C "${REPO_DIR}" branch --show-current | grep -q "^${BRANCH}$"; then
                 git -C "${REPO_DIR}" fetch --all
                 git -C "${REPO_DIR}" switch "${BRANCH}"
