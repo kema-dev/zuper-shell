@@ -5,7 +5,7 @@ k9s:
   readOnly: false
   noExitOnCtrlC: false
   ui:
-    skin: monokai
+    skin: everforest
     enableMouse: true
     headless: true
     logoless: true
@@ -16,7 +16,7 @@ k9s:
   skipLatestRevCheck: true
   disablePodCounting: false
   shellPod:
-    image: alpine:latest
+    image: busybox:latest
     namespace: default
     tty: true
     limits:
