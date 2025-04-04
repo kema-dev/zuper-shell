@@ -61,13 +61,15 @@ function fuzzy_clone() {
     local HOST_REGEX="^([^\/[:space:]]+)"
     local ORG_REGEX="([^\/[:space:]]+)"
     local REPO_REGEX="([^[:space:]]+?)(?:\.git)?"
-    local PR_MR_NUMBER_REGEX="(?:\/(?:-\/merge_requests|pull)\/([0-9]+))?$"
-    local GLOBAL_REGEX="${HOST_REGEX}\/${ORG_REGEX}\/${REPO_REGEX}${PR_MR_NUMBER_REGEX}"
+    local GLOBAL_REGEX="${HOST_REGEX}\/${ORG_REGEX}\/${REPO_REGEX}"
+    local PR_MR_NUMBER_REGEX="(?:\/(-\/)?(?:merge_requests|pull)\/([0-9]+))?$"
+    local TREE_BLOB_REGEX="(?:\/(-\/)?(?:tree|blob)\/([^[:space:]]+))?$"
     if echo "${SELECTED_REPO}" | grep -qP "${GLOBAL_REGEX}"; then
-        HOST="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}(?=\/${ORG_REGEX}\/${REPO_REGEX}${PR_MR_NUMBER_REGEX})")"
-        ORG="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/\K${ORG_REGEX}(?=\/${REPO_REGEX}${PR_MR_NUMBER_REGEX})")"
-        REPO="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/${ORG_REGEX}\/\K${REPO_REGEX}(?=${PR_MR_NUMBER_REGEX})")"
-        PR_MR_NUMBER="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/${ORG_REGEX}\/${REPO_REGEX}\K${PR_MR_NUMBER_REGEX}" | grep -oP "\/\K[0-9]+" || echo "")"
+        HOST="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}(?=.*)")"
+        ORG="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/\K${ORG_REGEX}(?=.*)")"
+        REPO="$(echo "${SELECTED_REPO}" | grep -oP "${HOST_REGEX}\/${ORG_REGEX}\/\K${REPO_REGEX}(?=$|\/[^\/[:space:]]+)")"
+        PR_MR_NUMBER="$(echo "${SELECTED_REPO}" | grep -oP "${GLOBAL_REGEX}\K${PR_MR_NUMBER_REGEX}" | grep -oP "\/\K[0-9]+" || echo "")"
+        TREE_BLOB_BRANCH_NAME="$(echo "${SELECTED_REPO}" | grep -oP "${GLOBAL_REGEX}\K${TREE_BLOB_REGEX}" | grep -oP "(tree|blob)\/\K([^\/[:space:]]+)(?=$|\/)" || echo "")"
     else
         echo "Failed to parse repository URL."
         return 1
@@ -77,14 +79,20 @@ function fuzzy_clone() {
     if [[ -n "${PR_MR_NUMBER:-}" ]]; then
         echo "Pull / Merge request number: ${PR_MR_NUMBER}"
     fi
+    local BRANCH
     if [[ -n "${PR_MR_NUMBER:-}" ]]; then
-        local BRANCH
         BRANCH="$(get_branch_from_pull_request)"
-        if [[ -z "${BRANCH}" ]]; then
+        if [[ -z "${BRANCH:-}" ]]; then
             echo "Failed to get branch from pull request."
             return 1
         fi
         echo "Found branch from pull request: ${BRANCH}"
+    fi
+    if [[ -n "${TREE_BLOB_BRANCH_NAME:-}" ]]; then
+        echo "Branch name: ${TREE_BLOB_BRANCH_NAME}"
+        if [[ -z "${BRANCH:-}" ]]; then
+            BRANCH="${TREE_BLOB_BRANCH_NAME}"
+        fi
     fi
     local REPO_DIR
     REPO_DIR="${KEMA_GIT_REPOS_DIR}/${SELECTED_REPO}"
@@ -93,10 +101,10 @@ function fuzzy_clone() {
         git clone --recurse-submodules https://"${SELECTED_REPO}" "${REPO_DIR}"
     fi
     if [[ "${CODE_INTO}" -eq 1 ]]; then
-        if [[ -n "${PR_MR_NUMBER:-}" ]]; then
+        if [[ -n "${BRANCH:-}" ]]; then
             if ! git -C "${REPO_DIR}" branch --show-current | grep -q "^${BRANCH}$"; then
                 git -C "${REPO_DIR}" fetch --all
-                git -C "${REPO_DIR}" switch "${BRANCH}"
+                git -C "${REPO_DIR}" switch "${BRANCH}" || git -C "${REPO_DIR}" checkout "${BRANCH}"
             fi
             git -C "${REPO_DIR}" pull
         fi
