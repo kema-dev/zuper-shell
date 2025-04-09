@@ -429,6 +429,14 @@
       "class": "opensuse"
     },
     {
+      "key": "opnsense",
+      "class": "opnsense"
+    },
+    {
+      "key": "Opnsense",
+      "class": "opnsense"
+    },
+    {
       "key": "parrot",
       "class": "parrot"
     },
