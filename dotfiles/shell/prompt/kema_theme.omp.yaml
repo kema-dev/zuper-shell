@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
 
 palette:
-  default_bg: "#dbefee"
+  default_bg: "#29315A"
   default_fg: "#0077ff"
 var:
   DefaultUser: kema
