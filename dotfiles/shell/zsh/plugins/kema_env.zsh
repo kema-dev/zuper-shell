@@ -61,6 +61,9 @@ if [[ ! -d "${NPM_CONFIG_PREFIX}" ]]; then
 	mkdir -p "${NPM_CONFIG_PREFIX}" >/dev/null 2>&1
 fi
 
+# https://github.com/dagger/dagger
+export DAGGER_NO_NAG=1
+
 # https://github.com/wofr06/lesspipe
 export LESSQUIET=1
 
