@@ -10,6 +10,7 @@ k9s:
     headless: true
     logoless: true
     crumbsless: true
+    splashless: true
     reactive: true
     noIcons: false
     defaultsToFullScreen: false
