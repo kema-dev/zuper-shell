@@ -68,6 +68,7 @@ alias pup='pulumi up'
 alias pupy='pulumi up --yes'
 alias pry='pulumi refresh --yes'
 alias pdestroy='pulumi destroy'
+alias pupe='pulumi up --exclude'
 alias tfc='terraform -chdir'
 # docker
 alias d='docker'
