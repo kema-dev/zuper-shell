@@ -3,7 +3,7 @@
     {
       "parent": "/windows",
       "template": [
-        "/windows/autounattend.xml"
+        "/autounattend.xml"
       ]
     }
   ],
