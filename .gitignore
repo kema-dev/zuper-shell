@@ -94,7 +94,8 @@
 !/dotfiles/terminal/README.md
 !/dotfiles/tmux/README.md
 !/dotfiles/tmux/tmux.conf
-!/dotfiles/ventoy/autounattend.xml
+!/dotfiles/ventoy/freebsd/.gitkeep
+!/dotfiles/ventoy/linux/.gitkeep
 !/dotfiles/ventoy/README.md
 !/dotfiles/ventoy/themes/tela/background.jpg
 !/dotfiles/ventoy/themes/tela/dejavu_sans_12.pf2
@@ -200,5 +201,6 @@
 !/dotfiles/ventoy/themes/tela/theme.txt
 !/dotfiles/ventoy/ventoy_wimboot.img
 !/dotfiles/ventoy/ventoy.json
+!/dotfiles/ventoy/windows/autounattend.xml
 !/LICENSE
 !/README.md

@@ -3,12 +3,12 @@
     {
       "parent": "/windows",
       "template": [
-        "/autounattend.xml"
+        "/windows/autounattend.xml"
       ]
     }
   ],
   "theme": {
-    "file": "/ventoy/themes/tela/theme.txt",
+    "file": "/themes/tela/theme.txt",
     "gfxmode": "1920x1080"
   },
   "menu_class": [
