@@ -94,7 +94,7 @@
 !/dotfiles/terminal/README.md
 !/dotfiles/tmux/README.md
 !/dotfiles/tmux/tmux.conf
-!/dotfiles/ventoy//ventoy/ventoy.json
+!/dotfiles/ventoy/ventoy/ventoy.json
 !/dotfiles/ventoy/freebsd/.gitkeep
 !/dotfiles/ventoy/linux/.gitkeep
 !/dotfiles/ventoy/README.md
