@@ -177,6 +177,7 @@ alias en='echo -n'
 if alias x >/dev/null; then
 	unalias x
 fi
+# https://stackoverflow.com/questions/48974448/how-to-generate-a-valid-ula-in-bash
 alias network_generate_ipv6_ula='printf "fd%x:%x:%x:%x::/64\n" "$(( ${RANDOM}/256 ))" "${RANDOM}" "${RANDOM}" "${RANDOM}"'
 alias gdb='gdb -q'
 alias lrc='echo $?'
