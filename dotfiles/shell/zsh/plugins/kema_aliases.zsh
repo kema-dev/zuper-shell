@@ -177,6 +177,7 @@ alias en='echo -n'
 if alias x >/dev/null; then
 	unalias x
 fi
+alias network_generate_ipv6_ula='printf "fd%x:%x:%x:%x::/64\n" "$(( ${RANDOM}/256 ))" "${RANDOM}" "${RANDOM}" "${RANDOM}"'
 alias gdb='gdb -q'
 alias lrc='echo $?'
 alias chx='chmod u+x'
