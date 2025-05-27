@@ -216,7 +216,7 @@ blocks:
         style: diamond
       - properties:
           cache_duration: none
-          command: ip -brief -oneline link show | grep -oP '(\w+)(?=_vpn)|(?<=wg0-)\w+' | awk '{print $1}' | sed ':a;N;$!ba;s/\n\([a-zA-Z0-9]\)/ - \1/g'
+          command: ip -brief -oneline link show | grep -P '(\w+)(?=_vpn)|wg-\w+' | awk '{print $1}' | sed ':a;N;$!ba;s/\n\([a-zA-Z0-9]\)/ - \1/g'
         trailing_diamond: " "
         template: 󱅞 {{ if .Output }}{{ .Output }}{{ end }}
         foreground: "#7DD181"
