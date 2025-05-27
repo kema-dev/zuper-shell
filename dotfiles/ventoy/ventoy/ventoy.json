@@ -437,6 +437,10 @@
       "class": "opnsense"
     },
     {
+      "key": "OPNsense",
+      "class": "opnsense"
+    },
+    {
       "key": "parrot",
       "class": "parrot"
     },
