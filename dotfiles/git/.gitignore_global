@@ -101,3 +101,7 @@ secret.key
 *.dtmp
 *.bck
 *.bkp
+
+# go
+go.work
+go.work.sum
