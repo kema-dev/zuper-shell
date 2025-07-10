@@ -39,16 +39,16 @@ blocks:
           slackware: 
           ubuntu: 
           windows: 
-        leading_diamond: 
+        leading_diamond: ''
         trailing_diamond: ' '
-        template: "{{ if .WSL }}\ue62a on {{ end }}{{ if .Icon }}{{ .Icon }}{{ end }}"
+        template: '{{ if .WSL }} on {{ end }}{{ if .Icon }}{{ .Icon }}{{ end }}'
         foreground: p:default_fg
         background: p:default_bg
         type: os
         style: diamond
       - properties:
           cache_duration: none
-        trailing_diamond: "\ue0b4 "
+        trailing_diamond: ' '
         template: '{{ if .Name }}{{ .Name }}{{ end }}'
         foreground: p:default_fg
         background: p:default_bg
@@ -56,8 +56,8 @@ blocks:
         style: diamond
       - properties:
           cache_duration: none
-        leading_diamond: 
-        template: "{{ if .SSHSession }}<#ff9248>\U000f08b9 </>{{ end }}{{ if .Root }}{{ if .UserName }}<#ff0055>{{ .UserName }}</>{{ end }}{{ else }}{{ .UserName }}{{ end }}"
+        leading_diamond: ''
+        template: '{{ if .SSHSession }}<#ff9248> </>{{ end }}{{ if .Root }}{{ if .UserName }}<#ff0055>{{ .UserName }}</>{{ end }}{{ else }}{{ .UserName }}{{ end }}'
         foreground: p:default_fg
         background: p:default_bg
         type: session
@@ -66,7 +66,7 @@ blocks:
           cache_duration: none
           command: cat "${HOME}/machine_mode"
           shell: bash
-        trailing_diamond: "\ue0b4 "
+        trailing_diamond: ' '
         template: '{{ if .Output }}@{{ .Output }}{{ end }}'
         foreground: p:default_fg
         background: p:default_bg
@@ -77,54 +77,54 @@ blocks:
           folder_icon: ...
           folder_separator_icon: /
           hide_root_location: false
-          home_icon: "\uf015 "
+          home_icon: ' '
           mapped_locations:
-            /tmp: "\U000f1750 "
+            /tmp: '󱝏 '
             ~/.dotfiles: 󱀨 dotfiles
           max_depth: 5
           mixed_threshold: 8
           style: agnoster_short
           windows_registry_icon: 
-        leading_diamond: 
-        trailing_diamond: "\ue0b4 "
+        leading_diamond: ''
+        trailing_diamond: ' '
         template: '{{ if .Path }}{{ .Path }}{{ end }}'
         foreground: p:default_fg
         background: p:default_bg
         type: path
         style: diamond
       - properties:
-          azure_devops_icon: "\uebe8 "
-          bitbucket_icon: 
-          branch_ahead_icon: ↑
-          branch_behind_icon: ↓
-          branch_gone_icon: ≢
-          branch_icon: "\ue0a0 "
-          branch_identical_icon: ≡
+          azure_devops_icon: ' '
+          bitbucket_icon: ' '
+          branch_ahead_icon: '↑'
+          branch_behind_icon: '↓'
+          branch_gone_icon: '≢ '
+          branch_icon: ' '
+          branch_identical_icon: '≡ '
           branch_max_length: 25
           cache_duration: none
-          cherry_pick_icon: "\ue29b "
+          cherry_pick_icon: ' '
           codecommit_icon: 󰸏
-          commit_icon: "\uf417 "
+          commit_icon: '󰜘 '
           fetch_bare_info: true
           fetch_stash_count: false
           fetch_status: true
           fetch_upstream_icon: true
           fetch_worktree_count: false
-          git_icon: 
-          github_icon: 
-          gitlab_icon: 
-          merge_icon: "\ue727 "
+          git_icon: ' '
+          github_icon: ' '
+          gitlab_icon: ' '
+          merge_icon: ' '
           native_fallback: false
           no_commits_icon: 󰙨
-          rebase_icon: "\ue728 "
-          revert_icon: "\uf0e2 "
-          tag_icon: "\uf412 "
+          rebase_icon: ' '
+          revert_icon: ' '
+          tag_icon: '󰓹 '
           truncate_symbol: ''
           upstream_icons:
             heptapod.host: 
-        leading_diamond: 
-        trailing_diamond: "\ue0b4 "
-        template: "{{ url .UpstreamIcon (print (replaceP \"\\\\.git\" .UpstreamURL \"\") \"/tree/\" .Ref) }}{{ if .UpstreamIcon }}{{ end }}{{ if .HEAD }} {{ .HEAD }}{{ end }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf0c7 {{ .StashCount }}{{ end }}"
+        leading_diamond: ''
+        trailing_diamond: ' '
+        template: "{{ url .UpstreamIcon (print (replaceP \"\\\\.git\" .UpstreamURL \"\") \"/tree/\" .Ref) }}{{ if .UpstreamIcon }}{{ end }}{{ if .HEAD }} {{ .HEAD }}{{ end }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} 󰷈 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}"
         foreground: '#43CCEA'
         background: p:default_bg
         type: git
@@ -141,7 +141,7 @@ blocks:
       - properties:
           cache_duration: none
         trailing_diamond: ' '
-        template: "{{ if or .Version .Name }}\uf487{{ end }}{{ if .Version }} {{ .Version }}{{ end }}{{ if .Name }} {{ .Name }}{{ end }}"
+        template: "{{ if or .Version .Name }} {{ end }}{{ if .Version }} {{ .Version }}{{ end }}{{ if .Name }} {{ .Name }}{{ end }}"
         foreground: '#5485a3'
         background: background
         type: project
@@ -206,10 +206,10 @@ blocks:
           display_mode: files
           fetch_package_manager: true
           fetch_version: true
-          npm_icon: <#FE4A49>\ue71e </>
-          yarn_icon: <#2c8ebb>\ue6a7</>
+          npm_icon: <#FE4A49> </>
+          yarn_icon: <#2c8ebb> </>
         trailing_diamond: ' '
-        template: "{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}\ue718 {{ if .Full }}{{ .Full }}{{ end }}"
+        template: "{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }} {{ if .Full }}{{ .Full }}{{ end }}"
         foreground: '#026e00'
         background: background
         type: node
@@ -226,9 +226,9 @@ blocks:
       - properties:
           always_enabled: false
           cache_duration: none
-        leading_diamond: 
-        trailing_diamond: "\ue0b4 "
-        template: "{{ if gt .Code 0 }}\uf00d {{ if .Meaning }}{{ .Meaning }}{{ end }}{{ end }}"
+        leading_diamond: ''
+        trailing_diamond: ' '
+        template: '{{ if gt .Code 0 }} {{ if .Meaning }}{{ .Meaning }}{{ end }}{{ end }}'
         foreground: '#eb3434'
         background: p:default_bg
         type: exit
@@ -237,8 +237,8 @@ blocks:
           cache_duration: none
           style: roundrock
           threshold: 2000
-        leading_diamond: 
-        trailing_diamond: "\ue0b4 "
+        leading_diamond: ''
+        trailing_diamond: ' '
         template:  {{ if .FormattedMs }} {{ .FormattedMs }}{{ end }}
         foreground: '#727272'
         background: p:default_bg
@@ -247,7 +247,7 @@ blocks:
       - properties:
           cache_duration: none
           style: mixed
-        leading_diamond: 
+        leading_diamond: ''
         trailing_diamond: 
         template:  {{ if .CurrentDate }}{{ .CurrentDate | date .Format }}{{ end }}
         foreground: '#727272'
@@ -270,7 +270,7 @@ tooltips:
       display_error: false
       parse_kubeconfig: false
     trailing_diamond: ' '
-    template: "\U000f10fe {{ if .Context }}{{ .Context }}{{ end }}{{ if .Cluster }}{{ if ne .Cluster .Context }}{{ if .Context }} :: {{ end }}{{ .Cluster }}{{ end }}{{ end }}{{ if or .Context .Cluster }} :: {{ end }}{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}{{ if .User }}{{ if ne .User .Cluster }}{{ if or .Context .Cluster}} :: {{ end }}{{ .User }}{{ end }}{{ end }}"
+    template: '󱃾 {{ if .Context }}{{ .Context }}{{ end }}{{ if .Cluster }}{{ if ne .Cluster .Context }}{{ if .Context }} :: {{ end }}{{ .Cluster }}{{ end }}{{ end }}{{ if or .Context .Cluster }} :: {{ end }}{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}{{ if .User }}{{ if ne .User .Cluster }}{{ if or .Context .Cluster}} :: {{ end }}{{ .User }}{{ end }}{{ end }}'
     foreground: '#316ce6'
     background: background
     type: kubectl
@@ -322,7 +322,7 @@ tooltips:
     tips:
       - az
   - trailing_diamond: ' '
-    template: "\ue7b2 {{ if .Account }}{{ .Account }}{{ end }}{{ if .Region }}{{ if .Account }}@{{ end }}{{ .Region }}{{ end }}{{ if .Project }}{{ if or .Account .Region }} :: {{ end }}{{ .Project }}{{ end }}"
+    template: ' {{ if .Account }}{{ .Account }}{{ end }}{{ if .Region }}{{ if .Account }}@{{ end }}{{ .Region }}{{ end }}{{ if .Project }}{{ if or .Account .Region }} :: {{ end }}{{ .Project }}{{ end }}'
     foreground: '#1a73e8'
     background: background
     type: gcp
@@ -332,7 +332,7 @@ tooltips:
       - gcs
       - gsutil
   - trailing_diamond: ' '
-    template: "\U000f18d8 {{ if .User }}{{ .User }}{{ end }}{{ if .Server }}{{ if .User }}@{{ end }}{{ .Server }}{{ end }}{{ if .Name }}{{ if or .User .Server }} :: {{ end }}{{ .Name }}{{ end }}"
+    template: ' {{ if .User }}{{ .User }}{{ end }}{{ if .Server }}{{ if .User }}@{{ end }}{{ .Server }}{{ end }}{{ if .Name }}{{ if or .User .Server }} :: {{ end }}{{ .Name }}{{ end }}'
     foreground: '#ef754f'
     background: background
     type: argocd
