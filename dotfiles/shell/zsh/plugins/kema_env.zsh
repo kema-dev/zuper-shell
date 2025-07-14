@@ -64,6 +64,9 @@ fi
 # https://github.com/dagger/dagger
 export DAGGER_NO_NAG=1
 
+# https://github.com/docker/cli
+export COMPOSE_BAKE="true"
+
 # https://github.com/wofr06/lesspipe
 export LESSQUIET=1
 
