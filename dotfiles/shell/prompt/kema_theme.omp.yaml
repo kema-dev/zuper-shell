@@ -146,16 +146,16 @@ blocks:
         background: background
         type: project
         style: diamond
-      - properties:
-          fetch_about: true
-          # HACK cache seems to be broken
-          fetch_stack: false
-        trailing_diamond: ' '
-        template: 󰹮 {{if .Stack }}{{ .Stack }}{{ end }}
-        foreground: '#f7bf2a'
-        background: background
-        type: pulumi
-        style: diamond
+      # - properties:
+      #     fetch_about: true
+      #     # HACK cache seems to be broken
+      #     fetch_stack: false
+      #   trailing_diamond: ' '
+      #   template: 󰹮 {{if .Stack }}{{ .Stack }}{{ end }}
+      #   foreground: '#f7bf2a'
+      #   background: background
+      #   type: pulumi
+      #   style: diamond
       - properties:
           cache_duration: none
           fetch_version: false
@@ -180,10 +180,29 @@ blocks:
         style: diamond
       - properties:
           cache_duration: none
+          command: cat "${HOME}/.pulumi/workspaces/$(cat Pulumi.yaml | head -n 1 | awk '{print $2}')-"*-workspace.json | jq -r '.stack' | awk -F'/' '{print $NF}'
+        trailing_diamond: ' '
+        template: 󰹮 {{ if .Output }}{{ .Output }}{{ end }}
+        foreground: '#f7bf2a'
+        background: background
+        type: command
+        style: diamond
+      - properties:
+          cache_duration: none
+          command: cat go.mod | head -n 1 | awk '{print $2}'
+        trailing_diamond: ' '
+        template:  {{ if .Output }}{{ .Output }}{{ end }}
+        foreground: '#5485a3'
+        background: background
+        type: command
+        style: diamond
+      - properties:
+          cache_duration: none
           display_mode: files
           fetch_version: true
           home_enabled: false
           parse_mod_file: true
+          parse_go_work_file: true
         trailing_diamond: ' '
         template: 󰟓 {{ if .Full }}{{ .Full }}{{ end }}
         foreground: '#79d4fd'
@@ -225,13 +244,13 @@ blocks:
         style: diamond
       - properties:
           always_enabled: false
-          cache_duration: none
+          status_template: ' {{ reason .Code }}'
         leading_diamond: ''
         trailing_diamond: ' '
-        template: '{{ if gt .Code 0 }} {{ if .Meaning }}{{ .Meaning }}{{ end }}{{ end }}'
+        template: '{{ .String }}'
         foreground: '#eb3434'
         background: p:default_bg
-        type: exit
+        type: status
         style: diamond
       - properties:
           cache_duration: none
@@ -312,7 +331,7 @@ tooltips:
       - aws
       - awless
   - properties:
-      source: first_match
+      source: cli
     trailing_diamond: ' '
     template:  {{ if .User.Name }}{{ .User.Name }}{{ end }}{{ if .EnvironmentName}}{{ if .User.Name }}@{{ end }}{{ .EnvironmentName }}{{ end }}
     foreground: '#0078d4'
