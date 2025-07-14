@@ -180,7 +180,7 @@ blocks:
         style: diamond
       - properties:
           cache_duration: none
-          command: cat "${HOME}/.pulumi/workspaces/$(cat Pulumi.yaml | head -n 1 | awk '{print $2}')-"*-workspace.json | jq -r '.stack' | awk -F'/' '{print $NF}'
+          command: cat "${HOME}/.pulumi/workspaces/$(cat Pulumi.yaml 2>/dev/null | head -n 1 | awk '{print $2}')-"*-workspace.json 2>/dev/null | jq -r '.stack' | awk -F'/' '{print $NF}'
         trailing_diamond: ' '
         template: 󰹮 {{ if .Output }}{{ .Output }}{{ end }}
         foreground: '#f7bf2a'
@@ -189,7 +189,7 @@ blocks:
         style: diamond
       - properties:
           cache_duration: none
-          command: cat go.mod | head -n 1 | awk '{print $2}'
+          command: cat go.mod 2>/dev/null | head -n 1 | awk '{print $2}'
         trailing_diamond: ' '
         template:  {{ if .Output }}{{ .Output }}{{ end }}
         foreground: '#5485a3'
@@ -235,7 +235,7 @@ blocks:
         style: diamond
       - properties:
           cache_duration: none
-          command: nmcli connection show --active | awk '{print $1}' | grep -oP '(wg|ovpn)-\K.+' | sed ':a;N;$!ba;s/\n\([a-zA-Z0-9]\)/ - \1/g'
+          command: nmcli connection show --active 2>/dev/null | awk '{print $1}' | grep -oP '(wg|ovpn)-\K.+' | sed ':a;N;$!ba;s/\n\([a-zA-Z0-9]\)/ - \1/g'
         trailing_diamond: ' '
         template: 󱅞 {{ if .Output }}{{ .Output }}{{ end }}
         foreground: '#7DD181'
