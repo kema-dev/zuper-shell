@@ -71,7 +71,7 @@ export COMPOSE_BAKE="true"
 export LESSQUIET=1
 
 # editor
-export VISUAL="code"
+export VISUAL="codium"
 export EDITOR="nvim"
 
 # k8s

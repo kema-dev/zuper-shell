@@ -108,7 +108,7 @@ function fuzzy_clone() {
             fi
             git -C "${REPO_DIR}" pull
         fi
-        code "${REUSE_WINDOW:-}" "${REPO_DIR}"
+        "${VISUAL:-}" "${REUSE_WINDOW:-}" "${REPO_DIR}"
     fi
 }
 
