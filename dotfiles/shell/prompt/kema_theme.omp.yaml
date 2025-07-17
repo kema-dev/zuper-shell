@@ -2,7 +2,8 @@
 
 shell_integration: true
 enable_cursor_positioning: true
-async: true
+# async causes maximum nested function level errors
+# async: true
 palette:
   default_bg: "#dbefee"
   default_fg: "#0077ff"
