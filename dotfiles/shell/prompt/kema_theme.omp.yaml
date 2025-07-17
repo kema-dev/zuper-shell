@@ -1,5 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
 
+shell_integration: true
+enable_cursor_positioning: true
+async: true
 palette:
   default_bg: "#dbefee"
   default_fg: "#0077ff"
