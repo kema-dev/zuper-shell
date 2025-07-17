@@ -52,7 +52,7 @@ function preview_file() {
 			dim="$(stty size </dev/tty | awk '{print $2 "x" $1}')"
 		fi
 		chafa -f sixel -s "${dim}" "${input}"
-		exiftool "${input}"
+		# exiftool "${input}"
 		exit_script 0
 	fi
 	if echo "${bat_mimes}" | grep -qP "${label}[\s,]"; then
