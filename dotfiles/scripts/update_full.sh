@@ -115,7 +115,7 @@ function update_flatpak() {
 
 function update_pip() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating pip...${COLOR_RESET:-}"
-	( pip-review --auto ) || return 1
+	( pip --disable-pip-version-check list --outdated --format=json | jq -r '.[].name' | xargs -I{} pip install --upgrade {}; ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Pip updated successfully${COLOR_RESET:-}"
 }
 
