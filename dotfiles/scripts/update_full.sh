@@ -16,7 +16,7 @@ function proceed_with_updates() {
 		echo -e "${COLOR_REGULAR_BLACK:-}No specific update requested, updating everything...${COLOR_RESET:-}"
 		requested_updates=("${final_updates[@]}")
 	fi
-	requested_updates=("$(printf "%s\n" "${requested_updates[@]}" | sort -u)")
+	requested_updates=("$(printf "%s\n" "${requested_updates[@]}" | uniq)")
 	# shellcheck disable=SC2048
 	for requested_update in ${requested_updates[*]}; do
 		case "${requested_update}" in
@@ -257,7 +257,7 @@ function main() {
 	failed_updates=()
 	available_updates=("system" "flatpak" "snap" "gem" "npm" "pip" "go" "cargo" "gh" "tldr" "git")
 	# Disable unused package managers
-	final_updates=("system" "flatpak" "npm" "pip" "go" "cargo" "tldr" "git")
+	final_updates=("system" "flatpak" "npm" "pip" "go" "" "tldr" "git")
 	requested_updates=()
 	request_sudo
 	parse_args "${@}"
