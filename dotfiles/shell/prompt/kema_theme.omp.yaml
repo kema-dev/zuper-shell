@@ -56,14 +56,14 @@ blocks:
         background: p:default_bg
         type: shell
         style: diamond
-      - properties:
-          cache_duration: none
-        leading_diamond: ''
-        template: '{{ if .SSHSession }}<#ff9248> </>{{ end }}{{ if .Root }}{{ if .UserName }}<#ff0055>{{ .UserName }}</>{{ end }}{{ else }}{{ .UserName }}{{ end }}'
-        foreground: p:default_fg
-        background: p:default_bg
-        type: session
-        style: diamond
+      # - properties:
+      #     cache_duration: none
+      #   leading_diamond: ''
+      #   template: '{{ if .SSHSession }}<#ff9248> </>{{ end }}{{ if .Root }}{{ if .UserName }}<#ff0055>{{ .UserName }}</>{{ end }}{{ else }}{{ .UserName }}{{ end }}'
+      #   foreground: p:default_fg
+      #   background: p:default_bg
+      #   type: session
+      #   style: diamond
       - properties:
           cache_duration: none
           command: cat "${HOME}/machine_mode"
@@ -148,16 +148,6 @@ blocks:
         background: background
         type: project
         style: diamond
-      # - properties:
-      #     fetch_about: true
-      #     # HACK cache seems to be broken
-      #     fetch_stack: false
-      #   trailing_diamond: ' '
-      #   template: 󰹮 {{if .Stack }}{{ .Stack }}{{ end }}
-      #   foreground: '#f7bf2a'
-      #   background: background
-      #   type: pulumi
-      #   style: diamond
       - properties:
           cache_duration: none
           fetch_version: false
@@ -167,19 +157,19 @@ blocks:
         background: background
         type: terraform
         style: diamond
-      - properties:
-          cache_duration: none
-          display_default: true
-          display_mode: context
-          fetch_version: true
-          fetch_virtual_env: true
-          home_enabled: false
-        trailing_diamond: ' '
-        template:  {{ if .Full }}{{ .Full }}{{ end }}{{ if .Venv }} ({{ .Venv }}){{ end }}
-        foreground: '#ffe263'
-        background: background
-        type: python
-        style: diamond
+      # - properties:
+      #     cache_duration: none
+      #     display_default: true
+      #     display_mode: context
+      #     fetch_version: true
+      #     fetch_virtual_env: true
+      #     home_enabled: false
+      #   trailing_diamond: ' '
+      #   template:  {{ if .Full }}{{ .Full }}{{ end }}{{ if .Venv }} ({{ .Venv }}){{ end }}
+      #   foreground: '#ffe263'
+      #   background: background
+      #   type: python
+      #   style: diamond
       - properties:
           cache_duration: none
           command: cat "${HOME}/.pulumi/workspaces/$(cat Pulumi.yaml 2>/dev/null | head -n 1 | awk '{print $2}')-"*-workspace.json 2>/dev/null | jq -r '.stack' | awk -F'/' '{print $NF}'
@@ -211,17 +201,17 @@ blocks:
         background: background
         type: go
         style: diamond
-      - properties:
-          cache_duration: none
-          display_mode: files
-          fetch_version: true
-          home_enabled: false
-        trailing_diamond: ' '
-        template:  {{ if .Full }}{{ .Full }}{{ end }}
-        foreground: '#cc342d'
-        background: background
-        type: ruby
-        style: diamond
+      # - properties:
+      #     cache_duration: none
+      #     display_mode: files
+      #     fetch_version: true
+      #     home_enabled: false
+      #   trailing_diamond: ' '
+      #   template:  {{ if .Full }}{{ .Full }}{{ end }}
+      #   foreground: '#cc342d'
+      #   background: background
+      #   type: ruby
+      #   style: diamond
       - properties:
           cache_duration: none
           display_mode: files
@@ -332,35 +322,35 @@ tooltips:
       - a
       - aws
       - awless
-  - properties:
-      source: cli
-    trailing_diamond: ' '
-    template:  {{ if .User.Name }}{{ .User.Name }}{{ end }}{{ if .EnvironmentName}}{{ if .User.Name }}@{{ end }}{{ .EnvironmentName }}{{ end }}
-    foreground: '#0078d4'
-    background: background
-    type: az
-    style: diamond
-    tips:
-      - az
-  - trailing_diamond: ' '
-    template: ' {{ if .Account }}{{ .Account }}{{ end }}{{ if .Region }}{{ if .Account }}@{{ end }}{{ .Region }}{{ end }}{{ if .Project }}{{ if or .Account .Region }} :: {{ end }}{{ .Project }}{{ end }}'
-    foreground: '#1a73e8'
-    background: background
-    type: gcp
-    style: diamond
-    tips:
-      - gcloud
-      - gcs
-      - gsutil
-  - trailing_diamond: ' '
-    template: ' {{ if .User }}{{ .User }}{{ end }}{{ if .Server }}{{ if .User }}@{{ end }}{{ .Server }}{{ end }}{{ if .Name }}{{ if or .User .Server }} :: {{ end }}{{ .Name }}{{ end }}'
-    foreground: '#ef754f'
-    background: background
-    type: argocd
-    style: diamond
-    tips:
-      - argo
-      - argocd
+  # - properties:
+  #     source: cli
+  #   trailing_diamond: ' '
+  #   template:  {{ if .User.Name }}{{ .User.Name }}{{ end }}{{ if .EnvironmentName}}{{ if .User.Name }}@{{ end }}{{ .EnvironmentName }}{{ end }}
+  #   foreground: '#0078d4'
+  #   background: background
+  #   type: az
+  #   style: diamond
+  #   tips:
+  #     - az
+  # - trailing_diamond: ' '
+  #   template: ' {{ if .Account }}{{ .Account }}{{ end }}{{ if .Region }}{{ if .Account }}@{{ end }}{{ .Region }}{{ end }}{{ if .Project }}{{ if or .Account .Region }} :: {{ end }}{{ .Project }}{{ end }}'
+  #   foreground: '#1a73e8'
+  #   background: background
+  #   type: gcp
+  #   style: diamond
+  #   tips:
+  #     - gcloud
+  #     - gcs
+  #     - gsutil
+  # - trailing_diamond: ' '
+  #   template: ' {{ if .User }}{{ .User }}{{ end }}{{ if .Server }}{{ if .User }}@{{ end }}{{ .Server }}{{ end }}{{ if .Name }}{{ if or .User .Server }} :: {{ end }}{{ .Name }}{{ end }}'
+  #   foreground: '#ef754f'
+  #   background: background
+  #   type: argocd
+  #   style: diamond
+  #   tips:
+  #     - argo
+  #     - argocd
   - trailing_diamond: ' '
     template:  {{ if .Context }}{{ .Context }}{{ end }}
     foreground: '#2496ed'
