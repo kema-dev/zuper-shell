@@ -69,7 +69,7 @@ history = 10000
 save_to_clipboard = false
 
 [terminal.shell]
-program = "/home/linuxbrew/.linuxbrew/bin/tmux"
+program = "tmux"
 
 [window.dimensions]
 columns = 120

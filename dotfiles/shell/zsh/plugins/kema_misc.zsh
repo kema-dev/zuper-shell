@@ -53,8 +53,6 @@ zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-*' fzf-preview
 # preview expansions
 zstyle ':fzf-tab:complete:((-parameter-|unset):|(export|typeset|declare|local):argument-rest)' fzf-preview 'echo ${(P)word}'
-# brew
-zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
 # kill: preview job
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w'
 # systemctl: preview service status
@@ -66,9 +64,6 @@ zstyle ':fzf-tab:complete:kubectx:*' fzf-preview '[[ $word == "-" ]] && echo Swi
 # completions sources
 if [[ -f "/usr/share/google-cloud-sdk/completion.zsh.inc" ]]; then
 	source "/usr/share/google-cloud-sdk/completion.zsh.inc"
-fi
-if [[ -d "${HOMEBREW_PREFIX}/Cellar/azure-cli/" ]]; then
-	source "${HOMEBREW_PREFIX}/Cellar/azure-cli/"*"/etc/bash_completion.d/az"
 fi
 complete -o nospace -C terraform terraform
 complete -o nospace -C vagrant vagrant

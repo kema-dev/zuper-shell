@@ -35,30 +35,10 @@ export FZF_TMUX_HEIGHT="100%"
 # NOTE height is overridden in forgit, needs to be set as FORGIT_FZF_DEFAULT_OPTS before sourcing forgit plugin
 export FORGIT_FZF_DEFAULT_OPTS="--height=100%"
 
-# brew
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_ENV_HINTS=1
-# NOTE brew shellenv is slow, performance / portability tradeoff in favor of performance here by exporting variables
-export HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar"
-export HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
-if [[ ":${PATH}:" == *":${HOMEBREW_PREFIX}/bin:"* ]]; then
-	export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
-fi
-if [[ ! ":${PATH}:" == *":${HOMEBREW_PREFIX}/sbin:"* ]]; then
-	export PATH="${HOMEBREW_PREFIX}/sbin:${PATH}"
-fi
-export MANPATH="${HOMEBREW_PREFIX}/share/man:${MANPATH+:$MANPATH}"
-export INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}"
-
-# ruby
-export GEM_HOME="${HOME}/gems"
-
 # go
 export GOPATH="${HOME}/go"
-export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
 
 # node
-export NVM_DIR="${HOME}/.nvm"
 export NPM_CONFIG_PREFIX="${HOME}/.npm-global"
 if [[ ! -d "${NPM_CONFIG_PREFIX}" ]]; then
 	mkdir -p "${NPM_CONFIG_PREFIX}" >/dev/null 2>&1
@@ -72,6 +52,7 @@ export COMPOSE_BAKE="true"
 
 # https://github.com/wofr06/lesspipe
 export LESSQUIET=1
+export LESSOPEN="| ${KEMA_SCRIPTS_DIR_PUBLIC}/lesspipe_improved.sh %s"
 
 # editor
 export VISUAL="codium"
@@ -80,22 +61,4 @@ export EDITOR="nvim"
 # k8s
 export KUBE_EDITOR="${EDITOR}"
 
-# 1.  ${HOMEBREW_PREFIX}/bin
-# 2.  ${HOMEBREW_PREFIX}/sbin
-# 3.  ${HOMEBREW_PREFIX}/opt/go/libexec/bin
-# 4.  ${HOME}/.local/bin
-# 5.  /usr/local/bin
-# 6.  /usr/local/sbin
-# 7.  /usr/bin
-# 8.  /bin
-# 9.  /usr/sbin
-# 10. /sbin
-# 11. ${GOPATH}/bin
-# 12. ${HOME}/.cargo/bin
-# 13. ${HOME}/.npm-global/bin
-# 14. ${HOME}/.pub-cache/bin
-# 15. ${NVM_DIR}/bin
-# 16. ${GEM_HOME}/bin
-# 17. ${HOME}/.krew/bin
-# 18. /var/lib/snapd/snap/bin
-export PATH="${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${HOMEBREW_PREFIX}/opt/go/libexec/bin:${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${GOPATH}/bin:${HOME}/.cargo/bin:${HOME}/.npm-global/bin:${HOME}/.pub-cache/bin:${NVM_DIR}/bin:${GEM_HOME}/bin:${HOME}/.krew/bin:/var/lib/snapd/snap/bin"
+export PATH="${HOME}/dev/tool/bin:${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:${GOPATH}/bin:${HOME}/.cargo/bin:${HOME}/.npm-global/bin"

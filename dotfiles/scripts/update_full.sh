@@ -69,12 +69,6 @@ function proceed_with_updates() {
 				failed_updates+=("cargo")
 			}
 			;;
-		brew)
-			update_brew || {
-				echo -e "${COLOR_REGULAR_YELLOW:-}Brew update failed${COLOR_RESET:-}"
-				failed_updates+=("brew")
-			}
-			;;
 		gh)
 			update_gh || {
 				echo -e "${COLOR_REGULAR_YELLOW:-}Gh update failed${COLOR_RESET:-}"
@@ -179,15 +173,6 @@ function update_npm() {
 		npm update -g || return 1
 	fi
 	echo -e "${COLOR_REGULAR_GREEN:-}Npm updated successfully${COLOR_RESET:-}"
-}
-
-function update_brew() {
-	echo -e "${COLOR_REGULAR_BLACK:-}Updating brew...${COLOR_RESET:-}"
-	if type brew >/dev/null; then
-		brew update || return 1
-		brew upgrade || return 1
-	fi
-	echo -e "${COLOR_REGULAR_GREEN:-}Brew updated successfully${COLOR_RESET:-}"
 }
 
 function update_gh() {
@@ -302,8 +287,8 @@ function main() {
 	check_variables
 	failed_updates=()
 	# NOTE npm and cargo disabled as not used
-	# available_updates=("system" "flatpak" "snap" "gem" "npm" "pip" "go" "cargo" "brew" "gh" "tldr" "git")
-	available_updates=("system" "flatpak" "snap" "gem" "pip" "go" "brew" "gh" "tldr" "git")
+	# available_updates=("system" "flatpak" "snap" "gem" "npm" "pip" "go" "cargo" "gh" "tldr" "git")
+	available_updates=("system" "flatpak" "snap" "gem" "pip" "go" "gh" "tldr" "git")
 	requested_updates=()
 	request_sudo
 	parse_args "${@}"

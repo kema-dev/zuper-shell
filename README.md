@@ -27,7 +27,6 @@ A collection of scripts, configurations, and dotfiles to enhance your shell expe
 - [GitHub CLI](https://github.com/cli/cli) - GitHub's official CLI tool, with support for issues, PRs, and more
 - [Visual Studio Code](https://github.com/microsoft/vscode) - Full-featured code editor, with great support for extensions
 - [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/) - Developer-friendly browser, with great support for extensions
-- [Homebrew](https://github.com/Homebrew/brew) - Package manager, works great on Linux too!
 - [Alacritty](https://github.com/alacritty/alacritty) - GPU-accelerated terminal emulator
 - [Pulumi](https://github.com/pulumi/pulumi) - Infrastructure as code tool using a real programming language
 - [Task](https://github.com/go-task/task) - Modern replacement for `make`
