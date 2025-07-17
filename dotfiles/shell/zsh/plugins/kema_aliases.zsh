@@ -195,7 +195,6 @@ alias ggr='TMP_CD_DIR="$(git rev-parse --show-toplevel)" ; if [ -n "${TMP_CD_DIR
 alias open='xdg-open'
 alias sopse='sops --encrypt --in-place'
 alias sopsd='sops --decrypt --in-place'
-alias terraform='tofu'
 alias tf='terraform'
 alias tfi='terraform init'
 alias tfa='terraform apply'
