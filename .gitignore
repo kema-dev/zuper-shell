@@ -33,6 +33,7 @@
 !/dotfiles/k9s/hotkeys.yaml
 !/dotfiles/k9s/plugins.yaml
 !/dotfiles/k9s/README.md
+!/dotfiles/k9s/skins/everforest.yaml
 !/dotfiles/k9s/skins/monokai.yaml
 !/dotfiles/neofetch/neofetch_remote.conf
 !/dotfiles/neofetch/neofetch.conf
@@ -94,7 +95,6 @@
 !/dotfiles/terminal/README.md
 !/dotfiles/tmux/README.md
 !/dotfiles/tmux/tmux.conf
-!/dotfiles/ventoy/ventoy/ventoy.json
 !/dotfiles/ventoy/freebsd/.gitkeep
 !/dotfiles/ventoy/linux/.gitkeep
 !/dotfiles/ventoy/README.md
@@ -201,6 +201,7 @@
 !/dotfiles/ventoy/ventoy/themes/tela/terminus-16.pf2
 !/dotfiles/ventoy/ventoy/themes/tela/terminus-18.pf2
 !/dotfiles/ventoy/ventoy/themes/tela/theme.txt
+!/dotfiles/ventoy/ventoy/ventoy.json
 !/dotfiles/ventoy/windows/autounattend.xml
 !/LICENSE
 !/README.md
