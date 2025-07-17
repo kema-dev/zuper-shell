@@ -14,7 +14,7 @@ function parse_args() {
 function proceed_with_updates() {
 	if [[ ${#requested_updates[@]} -eq 0 ]]; then
 		echo -e "${COLOR_REGULAR_BLACK:-}No specific update requested, updating everything...${COLOR_RESET:-}"
-		requested_updates=("${available_updates[@]}")
+		requested_updates=("${final_updates[@]}")
 	fi
 	requested_updates=("$(printf "%s\n" "${requested_updates[@]}" | sort -u)")
 	# shellcheck disable=SC2048
@@ -54,6 +54,12 @@ function proceed_with_updates() {
 			update_pip || {
 				echo -e "${COLOR_REGULAR_YELLOW:-}Pip update failed${COLOR_RESET:-}"
 				failed_updates+=("pip")
+			}
+			;;
+		cargo)
+			update_cargo || {
+				echo -e "${COLOR_REGULAR_YELLOW:-}Cargo update failed${COLOR_RESET:-}"
+				failed_updates+=("cargo")
 			}
 			;;
 		go)
@@ -97,97 +103,61 @@ function proceed_with_updates() {
 
 function update_system_packages() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating system packages...${COLOR_RESET:-}"
-	if type dnf >/dev/null; then
-		sudo dnf upgrade --assumeyes --refresh || return 1
-	fi
+	( sudo dnf upgrade --assumeyes --refresh ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}System packages updated successfully${COLOR_RESET:-}"
 }
 
 function update_flatpak() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating flatpak...${COLOR_RESET:-}"
-	if type flatpak >/dev/null; then
-		sudo flatpak update -y || return 1
-	fi
+	( sudo flatpak update -y ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Flatpak updated successfully${COLOR_RESET:-}"
 }
 
 function update_pip() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating pip...${COLOR_RESET:-}"
-	if type pip >/dev/null; then
-		if ! type pip-review >/dev/null; then
-			echo -e "${COLOR_REGULAR_YELLOW:-}pip-review not found, installing...${COLOR_RESET:-}"
-			pip install --upgrade pip
-			pip install pip-review
-			echo -e "${COLOR_REGULAR_GREEN:-}pip-review installed successfully${COLOR_RESET:-}"
-		fi
-		pip-review --auto || return 1
-	fi
+	( pip-review --auto ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Pip updated successfully${COLOR_RESET:-}"
 }
 
 function update_go() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating go...${COLOR_RESET:-}"
-	if type go >/dev/null; then
-		if ! type gup >/dev/null; then
-			echo -e "${COLOR_REGULAR_YELLOW:-}gup not found, installing...${COLOR_RESET:-}"
-			go install github.com/nao1215/gup@latest
-			echo -e "${COLOR_REGULAR_GREEN:-}gup installed successfully${COLOR_RESET:-}"
-		fi
-		gup update || return 1
-	fi
+	( go version -m "${GOPATH}/bin" | grep --after-context=1 -P "${GOPATH}/bin/.+:\sgo[0-9]+\.[0-9]+\.[0-9]+$" | grep -oP '\s+path\s+\K.+$' | xargs -I{} go install {}@latest; ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Go updated successfully${COLOR_RESET:-}"
 }
 
 function update_cargo() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating cargo...${COLOR_RESET:-}"
-	if type cargo >/dev/null; then
-		if ! type cargo-install-update >/dev/null; then
-			echo -e "${COLOR_REGULAR_YELLOW:-}cargo-install-update not found, installing...${COLOR_RESET:-}"
-			cargo install cargo-update
-			echo -e "${COLOR_REGULAR_GREEN:-}cargo-install-update installed successfully${COLOR_RESET:-}"
-		fi
-		cargo-install-update || return 1
-	fi
+	( cargo install $(cargo install --list | cut -sd' ' -f1) ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Cargo updated successfully${COLOR_RESET:-}"
 }
 
 function update_snap() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating snap...${COLOR_RESET:-}"
-	if type snap >/dev/null; then
-		sudo snap refresh || return 1
-	fi
+	( sudo snap refresh ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Snap updated successfully${COLOR_RESET:-}"
 }
 
 function update_gem() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating gem...${COLOR_RESET:-}"
-	if type gem >/dev/null; then
-		gem update || return 1
-	fi
+	( gem update ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Gem updated successfully${COLOR_RESET:-}"
 }
 
 function update_npm() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating npm...${COLOR_RESET:-}"
-	if type npm >/dev/null; then
-		npm update -g || return 1
-	fi
+	( npm update -g ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Npm updated successfully${COLOR_RESET:-}"
 }
 
 function update_gh() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating gh...${COLOR_RESET:-}"
-	if type gh >/dev/null; then
-		gh extension upgrade --all || return 1
-	fi
+	( gh extension upgrade --all ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Gh updated successfully${COLOR_RESET:-}"
 }
 
 function update_tldr() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating tldr...${COLOR_RESET:-}"
-	if type tldr >/dev/null; then
-		tldr --update || return 1
-	fi
+	( tldr --update ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}Tldr updated successfully${COLOR_RESET:-}"
 }
 
@@ -241,15 +211,13 @@ function update_git() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating git...${COLOR_RESET:-}"
 	get_git_repos
 	local git_repo_failed=()
-	if type git >/dev/null; then
-		for repo in "${git_repos[@]}"; do
-			echo -e "${COLOR_REGULAR_BLACK:-}Updating git repo located at ${COLOR_REGULAR_BLUE:-}${repo}${COLOR_REGULAR_BLACK:-}...${COLOR_RESET:-}"
-			git -C "${repo}" pull || {
-				git_repo_failed+=("$(basename "${repo}")")
-				echo -e "${COLOR_REGULAR_YELLOW:-}Git repo located at ${COLOR_REGULAR_BLUE:-}${repo}${COLOR_REGULAR_YELLOW:-} failed to update${COLOR_RESET:-}"
-			}
-		done
-	fi
+	for repo in "${git_repos[@]}"; do
+		echo -e "${COLOR_REGULAR_BLACK:-}Updating git repo located at ${COLOR_REGULAR_BLUE:-}${repo}${COLOR_REGULAR_BLACK:-}...${COLOR_RESET:-}"
+		git -C "${repo}" pull || {
+			git_repo_failed+=("$(basename "${repo}")")
+			echo -e "${COLOR_REGULAR_YELLOW:-}Git repo located at ${COLOR_REGULAR_BLUE:-}${repo}${COLOR_REGULAR_YELLOW:-} failed to update${COLOR_RESET:-}"
+		}
+	done
 	if [[ ${#git_repo_failed[@]} -gt 0 ]]; then
 		echo -e "${COLOR_REGULAR_YELLOW:-}The following git repos failed to update:${COLOR_RESET:-}"
 		for failed_repo in "${git_repo_failed[@]}"; do
@@ -268,6 +236,7 @@ function print_failed_updates() {
 		for failed_update in "${failed_updates[@]}"; do
 			echo -e "${COLOR_REGULAR_YELLOW:-} - ${failed_update}${COLOR_RESET:-}"
 		done
+		exit 1
 	fi
 }
 
@@ -286,9 +255,9 @@ function main() {
 	set -euo pipefail
 	check_variables
 	failed_updates=()
-	# NOTE npm and cargo disabled as not used
-	# available_updates=("system" "flatpak" "snap" "gem" "npm" "pip" "go" "cargo" "gh" "tldr" "git")
-	available_updates=("system" "flatpak" "snap" "gem" "pip" "go" "gh" "tldr" "git")
+	available_updates=("system" "flatpak" "snap" "gem" "npm" "pip" "go" "cargo" "gh" "tldr" "git")
+	# Disable unused package managers
+	final_updates=("system" "flatpak" "npm" "pip" "go" "cargo" "tldr" "git")
 	requested_updates=()
 	request_sudo
 	parse_args "${@}"

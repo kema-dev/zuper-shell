@@ -166,9 +166,6 @@ alias zsh_estimate_startup="hyperfine --warmup 5 --runs 25 --shell=none 'time zs
 alias bench_time='hyperfine --warmup 5 --runs 25 --shell=none'
 # debugging
 alias keystrokes_show_codes='showkey -a'
-if alias gup >/dev/null; then
-	unalias gup
-fi
 # hardware
 alias kernel_display_logs='sudo dmesg --follow'
 alias hardware_show_info='fastfetch && sudo dmidecode | grep -A10 "^System Information" | sed "/^$/q"'
