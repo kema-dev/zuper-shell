@@ -1,4 +1,5 @@
 # https://github.com/junegunn/fzf
+# colors from https://github-wiki-see.page/m/junegunn/fzf/wiki/Color-schemes Paper Color
 export FZF_DEFAULT_OPTS="
 --exit-0
 --extended
@@ -21,7 +22,10 @@ export FZF_DEFAULT_OPTS="
 --bind 'alt-enter:transform:echo print-query'
 --bind 'ctrl-space:toggle'
 --header 'ctrl-r : toggle sort | ctrl-\ : toggle preview | alt-\ toggle wrap | alt-enter : print query | ctrl-space : select'
---color=border:#808080,spinner:#E6DB74,hl:#F7EF54,fg:#F8F8F2,header:#b7815d,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672
+--color=fg:#4d4d4c,bg:#eeeeee,hl:#d7005f
+--color=fg+:#4d4d4c,bg+:#e8e8e8,hl+:#d7005f
+--color=info:#4271ae,prompt:#8959a8,pointer:#d7005f
+--color=marker:#4271ae,spinner:#4271ae,header:#4271ae
 "
 
 # https://github.com/Aloxaf/fzf-tab
