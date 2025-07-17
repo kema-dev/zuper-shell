@@ -257,7 +257,7 @@ function main() {
 	failed_updates=()
 	available_updates=("system" "flatpak" "snap" "gem" "npm" "pip" "go" "cargo" "gh" "tldr" "git")
 	# Disable unused package managers
-	final_updates=("system" "flatpak" "npm" "pip" "go" "" "tldr" "git")
+	final_updates=("system" "flatpak" "npm" "pip" "go" "cargo" "tldr" "git")
 	requested_updates=()
 	request_sudo
 	parse_args "${@}"
