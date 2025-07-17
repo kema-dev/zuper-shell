@@ -279,7 +279,7 @@ blocks:
 tooltips:
   - properties:
       display_error: false
-      parse_kubeconfig: false
+      parse_kubeconfig: true
     trailing_diamond: ' '
     template: '󱃾 {{ if .Context }}{{ .Context }}{{ end }}{{ if .Cluster }}{{ if ne .Cluster .Context }}{{ if .Context }} :: {{ end }}{{ .Cluster }}{{ end }}{{ end }}{{ if or .Context .Cluster }} :: {{ end }}{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}{{ if .User }}{{ if ne .User .Cluster }}{{ if or .Context .Cluster}} :: {{ end }}{{ .User }}{{ end }}{{ end }}'
     foreground: '#316ce6'
