@@ -134,3 +134,32 @@ function gmi() {
 	repo_path="$(echo "${repo_base}/${path_from_git_root}" | sed -e 's|/$||g')"
 	go mod init "${repo_path}"
 }
+
+# change kubernetes context
+function kcx() {
+	local CTX
+	CTX="$(kubectl config get-contexts --output name | fzf --prompt "Kubernetes context to witch to: " --preview-label=" Context information " --preview "kubectl config view --minify --context={} | yq --colors -r")"
+	if [[ -n "${CTX}" ]]; then
+		local CURR_CTX
+		CURR_CTX="$(kubectl config current-context)"
+		if [[ "${CURR_CTX}" == "${CTX}" ]]; then
+			echo "Already using context: ${CTX}"
+			return 0
+		fi
+		kubectl config use-context "${CTX}"
+	else
+		echo "No context selected."
+	fi
+}
+
+# change kubernetes namespace
+function kcs() {
+	local NAMESPACE
+	NAMESPACE="$(kubectl get namespaces --no-headers --output json | jq -r '.items[].metadata.name' | fzf --prompt "Kubernetes namespace to switch to: " --preview-label=" Namespace information " --preview "kubecolor --force-colors get pods -n {} -o wide")"
+	if [[ -n "${NAMESPACE}" ]]; then
+		kubectl config set-context --current --namespace="${NAMESPACE}"
+		echo "Switched to namespace: ${NAMESPACE}"
+	else
+		echo "No namespace selected."
+	fi
+}
