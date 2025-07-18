@@ -20,13 +20,10 @@
 	z-index: -10 !important;
 }
 
-/* Hide sidebar when window is inactive */
+/* Do not expand sidebar when window is inactive */
 #sidebar-main:-moz-window-inactive,
 #vertical-tabs:-moz-window-inactive {
-	display: none !important;
-	width: 0 !important;
-	z-index: -1000;
-	border: 0;
+	max-width: 52px !important;
 }
 
 /* Native context menu - List available here https://searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
