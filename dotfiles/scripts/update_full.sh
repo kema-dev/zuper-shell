@@ -104,6 +104,7 @@ function proceed_with_updates() {
 function update_system_packages() {
 	echo -e "${COLOR_REGULAR_BLACK:-}Updating system packages...${COLOR_RESET:-}"
 	( sudo dnf upgrade --assumeyes --refresh ) || return 1
+	( sudo dnf autoremove --assumeyes ) || return 1
 	echo -e "${COLOR_REGULAR_GREEN:-}System packages updated successfully${COLOR_RESET:-}"
 }
 
