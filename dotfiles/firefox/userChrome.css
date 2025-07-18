@@ -20,6 +20,14 @@
 	z-index: -10 !important;
 }
 
+/* Hide sidebar when window is inactive */
+#sidebar-main:-moz-window-inactive,
+#vertical-tabs:-moz-window-inactive {
+	display: none !important;
+	width: 0px !important;
+	z-index: -1000;
+}
+
 /* Native context menu - List available here https://searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
