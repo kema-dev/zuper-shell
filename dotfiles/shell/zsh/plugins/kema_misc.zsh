@@ -57,23 +57,9 @@ zstyle ':fzf-tab:complete:((-parameter-|unset):|(export|typeset|declare|local):a
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w'
 # systemctl: preview service status
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-# https://github.com/ahmetb/kubectx
-zstyle ':fzf-tab:complete:kubens:*' fzf-preview '[[ $word == "-" ]] && echo Switch to previous namespace && exit 0 || kubecolor --force-colors describe namespace $word && echo && kubecolor --force-colors get pods --namespace=$word'
-zstyle ':fzf-tab:complete:kubectx:*' fzf-preview '[[ $word == "-" ]] && echo Switch to previous context && exit 0 || context=$(kubectl config view -o jsonpath="{.contexts[?(@.name==\"$word\")].context.cluster}") && kubectl config view -o jsonpath="{.clusters[?(@.name==\"$context\")].cluster}" | yq -P | bat -p --color always -l yaml'
 
-# completions sources
-if [[ -f "/usr/share/google-cloud-sdk/completion.zsh.inc" ]]; then
-	source "/usr/share/google-cloud-sdk/completion.zsh.inc"
-fi
 complete -o nospace -C terraform terraform
-complete -o nospace -C vagrant vagrant
-complete -o nospace -C terraform terraform
-complete -o nospace -C packer packer
-complete -o nospace -C vault vault
-complete -o nospace -C consul consul
-complete -o nospace -C nomad nomad
-complete -o nospace -C waypoint waypoint
-complete -o nospace -C boundary boundary
+complete -o nospace -C aws_completer aws
 
 # https://gist.github.com/magicdude4eva/2d4748f8ef3e6bf7b1591964c201c1ab
 # Fix slow pasting while using fast-syntax-highlighting
@@ -87,5 +73,3 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
-
-complete -C 'aws_completer' aws
